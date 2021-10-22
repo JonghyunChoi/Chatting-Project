@@ -17,11 +17,11 @@
 <div>
     <form action="/createAccount" method="post">
         ID : <input type="text" name="id" value="${dto.id}">
-        <p>${id_error_message}</p> <br />
+        <p>${id_error_message}</p>
         PW : <input type="text" name="password" value="${dto.password}">
-        <p>${pwd_error_message}</p> <br />
+        <p>${pwd_error_message}</p>
         Nickname : <input type="text" name="nickname" value="${dto.nickname}">
-        <p>${nickname_error_message}</p> <br />
+        <p>${nickname_error_message}</p>
         <input type="submit" value="가입">
         <a href="/login"><input type="button" value="취소" /></a> <br />
         <a href="/">홈으로</a> <br />

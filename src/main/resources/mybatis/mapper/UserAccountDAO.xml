@@ -3,12 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.ac.uc.chatting.dao.IUserAccountDAO">
-    <select id="getUserID" resultType="kr.ac.uc.chatting.dto.UserAccountDTO">
+<mapper namespace="kr.ac.uc.webchatting.dao.IUserAccountDAO">
+    <select id="getUserID" resultType="kr.ac.uc.webchatting.dto.UserAccountDTO">
         select * from user_account where id=#{param1};
     </select>
 
-    <insert id="saveUserAccount" parameterType="kr.ac.uc.chatting.dto.UserAccountDTO">
+    <insert id="saveUserAccount" parameterType="kr.ac.uc.webchatting.dto.UserAccountDTO">
         insert into user_account(id, password, authority, nickname, enabled)
                     values (#{id}, #{password}, #{authority}, #{nickname}, #{enabled});
     </insert>
