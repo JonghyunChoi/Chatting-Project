@@ -23,7 +23,7 @@ public class AccountController {
     @Autowired
     IUserAccountDAO userAccountDAO;
 
-    @RequestMapping("/createAccount")
+    @RequestMapping("/auth_register")
     public String createAccount(Model model,
                                 HttpServletRequest request,
                                 @ModelAttribute("dto") @Valid UserAccountDTO userAccountDTO,

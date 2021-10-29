@@ -2,19 +2,20 @@ package kr.ac.uc.webchatting.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
 
-    @RequestMapping("/")
-    public String root() { return "redirect:/chatting"; }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String root() { return "index"; }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() { return "security/login"; }
 
-    @RequestMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register() { return "security/register"; }
 
-    @RequestMapping("/room_list")
-    public String room_list() { return "chat/room_list"; }
+//    @RequestMapping(value = "/room_list", method = RequestMethod.GET)
+//    public String room_list() { return "/room_list"; }
 }

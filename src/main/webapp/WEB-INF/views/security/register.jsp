@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
 
-    <link rel="stylesheet" type="text/css" href="/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 </div>
 
 <div>
-    <form action="/createAccount" method="post">
+    <form action="/auth_register" method="post">
         ID : <input type="text" name="id" value="${dto.id}">
         <p>${id_error_message}</p>
         PW : <input type="text" name="password" value="${dto.password}">

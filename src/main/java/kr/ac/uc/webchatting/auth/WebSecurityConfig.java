@@ -21,10 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //System.out.println(passwordEncoder().encode("123"));
         http.authorizeRequests()
 //                .antMatchers("/").permitAll()
-                .antMatchers("/login", "/register").permitAll()
-                .antMatchers("/createAccount").permitAll()
+                .antMatchers("/login", "/register", "/auth_register").permitAll()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/chatting").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/room_list").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated();
 
         http.formLogin()
