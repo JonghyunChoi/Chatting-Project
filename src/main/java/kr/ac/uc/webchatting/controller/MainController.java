@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String root() { return "index"; }
+    @RequestMapping("/")
+    public String root() { return "redirect:/main"; }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping("/login")
     public String login() { return "security/login"; }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping("/register")
     public String register() { return "security/register"; }
 
-//    @RequestMapping(value = "/room_list", method = RequestMethod.GET)
-//    public String room_list() { return "/room_list"; }
+    @RequestMapping("/main")
+    public String room_list() { return "thymeleaf/main"; }
 }
