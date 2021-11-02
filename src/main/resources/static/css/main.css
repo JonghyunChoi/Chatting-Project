@@ -14,3 +14,16 @@
     border: 1px solid;
     width: 50%;
 }
+
+.header_wrap {
+    display: inline-flex;
+}
+
+.header_title {
+    border: 1px solid;
+}
+
+.user_profile {
+    
+    border: 1px solid;
+}
