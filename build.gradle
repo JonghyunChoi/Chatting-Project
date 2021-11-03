@@ -35,6 +35,11 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
     testImplementation 'org.springframework.security:spring-security-test:5.5.1'
+
+    // Websockets
+    implementation 'org.springframework:spring-websocket:5.3.12'
+
+
 }
 
 test {
