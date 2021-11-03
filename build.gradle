@@ -16,25 +16,25 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.5'
-    implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
-    implementation 'org.springframework.security:spring-security-taglibs:5.5.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.security:spring-security-taglibs'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
-    implementation 'javax.servlet:jstl:1.2'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.0.12'
+    implementation 'javax.servlet:jstl'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
     // Thymeleaf
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.5.5'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
-    testImplementation 'org.springframework.security:spring-security-test:5.5.1'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     // Websockets
     implementation 'org.springframework:spring-websocket:5.3.12'
