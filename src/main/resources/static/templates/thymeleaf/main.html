@@ -2,32 +2,43 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Room Channel</title>
 
-    <th:block th:replace="fragment/config :: configFragment"></th:block>
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+    <!-- test -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- test -->
+
+    <th:block th:replace="fragment/config :: configFragment"></th:block>
 </head>
 <body>
-    <div class="wrap">
-        <div class="header_wrap">
-            <div class="header_title">
-                <p>Room Channel</p>
-            </div>
-
-            <div class="user_profile">
-                <!-- 유저 프로필 -->
-                <img src="../../images/Profile.png" alt="" width="50px" />
+<div class="container-fluid">
+    <div class="header">
+        <div class="header_title">
+            <a href="#" class="text-align">채팅방 목록</a>
+            <a href="#" class="text-align" style="padding-left: 50px">공개 채팅방</a>
+            <div style="display: inline; padding-left: 50px">
+                <button type="button" class="btn btn-primary">채팅방 만들기</button>
             </div>
         </div>
+
         
-        <div class="content_wrap">
-            <!-- 채팅방 목록 -->
-        </div>
-
-        <div class="footer_wrap">
-            <!-- 하단 기능(설정 등) -->
-        </div>
     </div>
+
+    <div class="content">
+        <!-- 채팅방 목록 -->
+
+    </div>
+
+    <div class="footer">
+        <!-- 하단 기능(설정 등) -->
+    </div>
+</div>
     
 <!-- js -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
