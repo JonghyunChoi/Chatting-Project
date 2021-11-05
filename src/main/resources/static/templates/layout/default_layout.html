@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <th:block th:replace="fragment/config :: configFragment"></th:block>
+</head>
+
+<body>
+<div class="container">
+    <!-- header fragment -->
+    <th:block th:replace="fragment/header :: headerFragment"></th:block>
+
+    <!-- content fragment -->
+    <th:block layout:fragment="content"></th:block>
+
+    <!-- footer fragment -->
+    <th:block th:replace="fragment/footer :: footerFragment"></th:block>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</body>
+</html>

@@ -17,5 +17,8 @@ public class MainController {
     public String register() { return "security/register"; }
 
     @RequestMapping("/main")
-    public String room_list() { return "thymeleaf/main"; }
+    public String main() { return "thymeleaf/main"; }
+
+    @RequestMapping("/chat_room")
+    public String chat_room() { return "thymeleaf/chat_room"; }
 }

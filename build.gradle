@@ -27,6 +27,7 @@ dependencies {
 
     // Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
