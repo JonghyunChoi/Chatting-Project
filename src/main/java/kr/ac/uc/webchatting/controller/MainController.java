@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainController {
 
     @RequestMapping("/")
-    public String root() { return "redirect:/chat_room/main"; }
+    public String root() { return "redirect:/chat/main"; }
 
     @RequestMapping("/login")
     public String login() { return "security/login"; }
@@ -17,5 +17,5 @@ public class MainController {
     public String register() { return "security/register"; }
 
     @RequestMapping("/admin")
-    public String admin() { return "redirect:/chat_room/main"; }
+    public String admin() { return "redirect:/chat/main"; }
 }

@@ -10,7 +10,7 @@
 <div class="content" layout:fragment="content">
     <div class="content_top">
         <span class="fs-3 align-middle">채팅방 만들기</span>
-        <a href="/chat_room/list"><button type="button" class="btn btn-primary align-middle float-end">목록</button></a>
+        <a href="/chat/list"><button type="button" class="btn btn-primary align-middle float-end">목록</button></a>
 
         <hr />
     </div>
@@ -22,7 +22,7 @@
                     <table class="table">
                         <tr>
                             <th class="text-center">방 이름</th>
-                            <td><input type="text" name="title" value="${title}" />
+                            <td><input type="text" name="title" value="" />
                                 <a class="text-danger">${title_error_message}</a>
                             </td>
 
@@ -30,18 +30,18 @@
                         <tr>
                             <th class="text-center">방장</th>
                             <td>
-                                <input type="text" placeholder=<sec:authentication property="name"/> disabled />
+                                <input type="text" placeholder="" property="name" disabled />
                             </td>
                         </tr>
                         <tr>
-                            <th class="text-center">공개 여부(Public)</th>
-                            <td><input type="text" name="content" maxlength="500" size="100" value="${content}" />
+                            <th class="text-center">공개 여부</th>
+                            <td><input type="text" name="content" maxlength="500" size="100" value="" />
                                 <a class="text-danger">${content_error_message}</a>
                             </td>
                         </tr>
                     </table>
                     <div class="text-end">
-                        <a class="btn btn-secondary text-decoration-none" href="/chat_room/list">취소</a>
+                        <a class="btn btn-secondary text-decoration-none" href="/chat/list">취소</a>
                         <input class="btn btn-primary text-decoration-none" type="submit" value="등록" />
                     </div>
                 </form>

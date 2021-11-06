@@ -18,12 +18,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //System.out.println(passwordEncoder().encode("123"));
         http.authorizeRequests()
-//                .antMatchers("/").permitAll()
                 .antMatchers("/login", "/register", "/auth_register").permitAll()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/chat_room/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/chat/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -36,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 .permitAll();
 
         http.csrf().disable();

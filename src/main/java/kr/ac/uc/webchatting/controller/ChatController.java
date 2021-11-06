@@ -4,17 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/chat_room")
+@RequestMapping("/chat")
 public class ChatController {
     @RequestMapping("/main")
-    public String chat_room_main() { return "thymeleaf/chat_main"; }
+    public String chatMain() { return "thymeleaf/chat_Main"; }
 
     @RequestMapping("/list")
-    public String chat_room_list() { return "thymeleaf/room_list"; }
+    public String chatRoomList() { return "thymeleaf/chat_MyRoomList"; }
 
     @RequestMapping("/make")
-    public String chat_room_make() { return "thymeleaf/make_room"; }
+    public String chatMakeRoom() { return "thymeleaf/chat_MakeRoom"; }
 
     @RequestMapping("/public")
-    public String chat_room_public() { return ""; }
+    public String chatPublicRoom() { return ""; }
 }
