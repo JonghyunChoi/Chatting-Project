@@ -21,31 +21,39 @@
                 <form action="">
                     <table class="table">
                         <tr>
+                            <!-- 방 이름 -->
                             <th class="text-center">방 이름</th>
-                            <td><input type="text" name="title" value="" />
-                                <a class="text-danger">${title_error_message}</a>
+                            <td><input type="text" name="title" />
+<!--                                <a class="text-danger">${title_error_message}</a>-->
                             </td>
 
                         </tr>
                         <tr>
+                            <!-- 방장 -->
                             <th class="text-center">방장</th>
                             <td>
-                                <input type="text" placeholder="" property="name" disabled />
+                                <input type="text" th:placeholder="${nickname}" property="name" disabled />
                             </td>
                         </tr>
                         <tr>
+                            <!-- 공개 여부 -->
                             <th class="text-center">공개 여부</th>
-                            <td><input type="text" name="content" maxlength="500" size="100" value="" />
-                                <a class="text-danger">${content_error_message}</a>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="publicChatRoomSwitch">
+                                    <label class="form-check-label" for="publicChatRoomSwitch"></label>
+                                </div>
                             </td>
                         </tr>
                     </table>
+                    <!-- FOOTER -->
                     <div class="text-end">
                         <a class="btn btn-secondary text-decoration-none" href="/chat/list">취소</a>
                         <input class="btn btn-primary text-decoration-none" type="submit" value="등록" />
                     </div>
                 </form>
             </div>
+        </div>
     </div>
 </div>
 </html>

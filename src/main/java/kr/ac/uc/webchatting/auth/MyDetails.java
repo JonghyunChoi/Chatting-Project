@@ -35,6 +35,8 @@ public class MyDetails implements UserDetails {
 		return userAccountDTO.getId();
 	}
 
+	public String getUserNickname() { return userAccountDTO.getNickname(); }
+
 	@Override
 	public boolean isAccountNonExpired() {
 
