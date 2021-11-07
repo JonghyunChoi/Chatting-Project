@@ -18,12 +18,12 @@
     <div class="content_main">
         <div class="p-5 mb-4 rounded-3">
             <div class="container-fluid py-5">
-                <form action="">
+                <form action="makeRoom">
                     <table class="table">
                         <tr>
                             <!-- 방 이름 -->
                             <th class="text-center">방 이름</th>
-                            <td><input type="text" name="title" />
+                            <td><input type="text" name="room_name" />
 <!--                                <a class="text-danger">${title_error_message}</a>-->
                             </td>
 
@@ -32,16 +32,25 @@
                             <!-- 방장 -->
                             <th class="text-center">방장</th>
                             <td>
-                                <input type="text" th:placeholder="${nickname}" property="name" disabled />
+                                <input type="text" name="master_id" th:value="${id}" th:placeholder="${nickname+'('+id+')'}" disabled />
+                                <input type="text" name="master_id" th:value="${id}" th:placeholder="${nickname+'('+id+')'}" hidden />
                             </td>
                         </tr>
                         <tr>
                             <!-- 공개 여부 -->
                             <th class="text-center">공개 여부</th>
                             <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="publicChatRoomSwitch">
-                                    <label class="form-check-label" for="publicChatRoomSwitch"></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="1" name="public_open" id="publicChatRoom1">
+                                    <label class="form-check-label" for="publicChatRoom1">
+                                        공개
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="0" name="public_open" id="publicChatRoom2" checked>
+                                    <label class="form-check-label" for="publicChatRoom2">
+                                        비공개
+                                    </label>
                                 </div>
                             </td>
                         </tr>
@@ -49,7 +58,7 @@
                     <!-- FOOTER -->
                     <div class="text-end">
                         <a class="btn btn-secondary text-decoration-none" href="/chat/list">취소</a>
-                        <input class="btn btn-primary text-decoration-none" type="submit" value="등록" />
+                        <input class="btn btn-primary text-decoration-none" type="submit" value="생성" />
                     </div>
                 </form>
             </div>

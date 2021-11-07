@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.uc.webchatting.dao.IChatRoomDAO">
+    <insert id="saveChatRoom" parameterType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
+        insert into chat_room(room_name, master_id, public_open)
+                    values (#{room_name}, #{master_id}, #{public_open});
+    </insert>
+</mapper>
