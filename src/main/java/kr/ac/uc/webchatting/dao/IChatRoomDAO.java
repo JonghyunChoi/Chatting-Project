@@ -7,4 +7,5 @@ import java.util.List;
 @Mapper
 public interface IChatRoomDAO {
     public void saveChatRoom(ChatRoomDTO dto);
+    public List<ChatRoomDTO> publicRoomList();
 }

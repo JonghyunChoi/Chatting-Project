@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
@@ -39,7 +40,12 @@ public class ChatController {
     }
 
     @RequestMapping("/public")
-    public String chatRoomPublic() { return ""; }
+    public String chatRoomPublic(Model model) {
+        List<ChatRoomDTO> roomInfoCarrier = chatRoomDAO.publicRoomList();
+        model.addAttribute("roomInfoCarrier", roomInfoCarrier);
+
+        return "thymeleaf/chat_PublicRoomList";
+    }
 
     @RequestMapping("/makeRoom")
     public String chatRoomMakeProcess(HttpServletRequest request, Model model) {

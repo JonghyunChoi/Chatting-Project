@@ -8,4 +8,8 @@
         insert into chat_room(room_name, master_id, public_open)
                     values (#{room_name}, #{master_id}, #{public_open});
     </insert>
+    
+    <select id="publicRoomList" resultType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
+        select * from chat_room where public_open = 1
+    </select>
 </mapper>
