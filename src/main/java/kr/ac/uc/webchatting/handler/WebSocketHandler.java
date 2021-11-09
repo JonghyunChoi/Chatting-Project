@@ -30,3 +30,5 @@ public class WebSocketHandler extends TextWebSocketHandler {
         room.handleActions(session, chatMessage, chatService);
     }
 }
+
+// 로그는 찍히는데 제대로 연결이 되지 않음. 원인 ?????
