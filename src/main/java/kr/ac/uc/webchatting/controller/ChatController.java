@@ -22,10 +22,10 @@ import java.util.List;
 @RequestMapping("/chat")
 public class ChatController {
 
-    private final SimpMessageSendingOperations messagingTemplate;
 
     @Autowired
     IChatRoomDAO chatRoomDAO;
+    SimpMessageSendingOperations messagingTemplate;
 
     @RequestMapping("/main")
     public String chatMain() {
