@@ -2,8 +2,12 @@ package kr.ac.uc.webchatting.controller;
 
 import kr.ac.uc.webchatting.auth.MyDetails;
 import kr.ac.uc.webchatting.dao.IChatRoomDAO;
+import kr.ac.uc.webchatting.dto.ChatDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
 
+
     @Autowired
     IChatRoomDAO chatRoomDAO;
+    SimpMessageSendingOperations messagingTemplate;
 
     @RequestMapping("/main")
     public String chatMain() {
@@ -60,5 +67,12 @@ public class ChatController {
 
         chatRoomDAO.saveChatRoom(chatRoomDTO);
         return "redirect:/chat/list";
+    }
+
+    @MessageMapping("/chat/message")
+    public void message(ChatDTO message) {
+        if (ChatDTO.MessageType.ENTER.equals(message.getType()))
+            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
+        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoom_id(), message);
     }
 }
