@@ -29,15 +29,19 @@ public class ChatController {
 
     @RequestMapping("/main")
     public String chatMain() {
+        // 메인 화면
         return "thymeleaf/chat_Main";
     }
 
     @RequestMapping("/list")
-    public String chatRoomList() { return "thymeleaf/chat_MyRoomList"; }
+    public String chatRoomList() {
+        // 참여하고 있는 채팅방 목록
+        return "thymeleaf/chat_MyRoomList";
+    }
 
     @RequestMapping("/make")
     public String chatRoomMakePage(@AuthenticationPrincipal MyDetails myDetails, Model model) {
-        // 방장 닉네임 고정
+        // 채팅방 만드는 페이지
         String id = myDetails.getUsername();
         String nickname = myDetails.getUserNickname();
         model.addAttribute("id", id);
@@ -48,6 +52,7 @@ public class ChatController {
 
     @RequestMapping("/public")
     public String chatRoomPublic(Model model) {
+        // 공개 채팅방 리스트
         List<ChatRoomDTO> roomInfoCarrier = chatRoomDAO.publicRoomList();
         model.addAttribute("roomInfoCarrier", roomInfoCarrier);
 
@@ -56,16 +61,19 @@ public class ChatController {
 
     @RequestMapping("/makeRoom")
     public String chatRoomMakeProcess(HttpServletRequest request, Model model) {
+        // 채팅방 생성 URL
         String room_name = request.getParameter("room_name");
         String master_id = request.getParameter("master_id");
+        int total_people = 1;
         int public_open = Integer.parseInt(request.getParameter("public_open"));
 
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
         chatRoomDTO.setRoom_name(room_name);
         chatRoomDTO.setMaster_id(master_id);
+        chatRoomDTO.setTotal_people(total_people);
         chatRoomDTO.setPublic_open(public_open);
 
-        chatRoomDAO.saveChatRoom(chatRoomDTO);
+        chatRoomDAO.insertChatRoom(chatRoomDTO);
         return "redirect:/chat/list";
     }
 
