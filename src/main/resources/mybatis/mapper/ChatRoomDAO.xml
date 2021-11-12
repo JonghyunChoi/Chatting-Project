@@ -8,8 +8,20 @@
         insert into chat_room(room_name, master_id, total_people, public_open)
                     values (#{room_name}, #{master_id}, #{total_people}, #{public_open});
     </insert>
+
+    <select id="myRoomList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
+        select chat_room.room_id, chat_room.room_name, chat_room.total_people, chat_room.master_id
+        from chat_room, user_account, chat_room_userinfo
+        where chat_room.room_id=chat_room_userinfo.room_id AND #{id}=chat_room_userinfo.id
+        group by room_id
+        order by room_id;
+    </select>
     
     <select id="publicRoomList" resultType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
-        select * from chat_room where public_open = 1
+        select * from chat_room where public_open = 1;
+    </select>
+
+    <select id="getChatRoomID" resultType="_int">
+        select LAST_INSERT_ID();
     </select>
 </mapper>
