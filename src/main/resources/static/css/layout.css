@@ -1,17 +1,10 @@
 @charset "UTF-8";
 
-/* body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 75vh;
-    margin: 0;
-    border-radius: 1px;
-} */
+body {
+    background-color: rgb(248, 249, 250);
+}
 
 .container {
-    border: 1px solid;
     min-height: 100vh;
     background-color: rgb(248, 249, 250);
     display: inline-flex;
@@ -34,7 +27,6 @@
 
 .content_main {
     border: 1px solid;
-}
-
-.footer {
+    max-height: 824px;
+    overflow: auto;
 }
