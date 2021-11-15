@@ -30,21 +30,21 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="/chat/main" class="nav-link link-dark">
+                <a href="/chat/main" class="btn btn-outline-secondary nav-link link-dark text-start">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home" /></svg>
                     메인
                 </a>
             </li>
             <li>
-                <a href="/chat/list" class="nav-link link-dark">
+                <a href="/chat/list" class="btn btn-outline-secondary nav-link link-dark text-start">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#chat" /></svg>
                     채팅
                 </a>
             </li>
             <li>
-                <a href="/chat/public" class="nav-link link-dark">
+                <a href="/chat/public" class="btn btn-outline-secondary nav-link link-dark text-start">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#public_chat" /></svg>
                     공개 채팅
@@ -60,7 +60,7 @@
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                 </svg>
                 <!-- nickname -->
-                <strong></strong>
+                <strong th:text="${#authentication.getName()}"></strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="">Settings</a></li>

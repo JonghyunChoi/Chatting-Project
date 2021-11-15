@@ -17,10 +17,10 @@
     <div class="content_main">
         <div class="card" th:each="myRoomInfo : ${myRoomInfoCarrier}">
             <div class="card-header">
-                <span th:text="${'방 번호: ' + myRoomInfo.room_id}"></span>
+                <h5 th:text="${'방 이름: ' + myRoomInfo.room_name}"></h5>
             </div>
             <div class="card-body">
-                <h5 class="card-title" th:text="${'방 이름: ' + myRoomInfo.room_name}"></h5>
+                <p class="card-title" th:text="${'방 번호: ' + myRoomInfo.room_id}"></p>
                 <p class="card-text" th:text="${'총원: ' + myRoomInfo.total_people}"></p>
                 <p class="card-text" th:text="${'방장: ' + myRoomInfo.master_id}"></p>
                 <a href="#" class="btn btn-primary">입장</a>
