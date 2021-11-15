@@ -4,7 +4,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 <head>
-    <title>메인</title>
+    <title>공개 채팅</title>
+    <script th:src="@{/js/search.js}"></script>
 </head>
 
 <div class="content" layout:fragment="content">
@@ -16,9 +17,15 @@
     </div>
 
     <div class="content_main">
+        <!-- 검색 -->
+        <div class="search">
+            <input onkeyup="filter()" id="value" type="text" placeholder="Search" style="width: 100%;">
+        </div>
+
         <div class="card" th:each="roomInfo : ${roomInfoCarrier}">
             <div class="card-header">
-                <h5 th:text="${'방 이름: ' + roomInfo.room_name}"></h5>
+                <span class="h5">방 이름: </span>
+                <span class="room-title h5" th:text="${roomInfo.room_name}"></span>
             </div>
             <div class="card-body">
                 <p class="card-title" th:text="${'방 번호: ' + roomInfo.room_id}"></p>
