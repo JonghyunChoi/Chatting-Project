@@ -7,6 +7,7 @@ import kr.ac.uc.webchatting.dto.ChatRoomDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class ChatController {
     IChatRoomDAO chatRoomDAO;
     @Autowired
     IChatRoomUserInfoDAO chatRoomUserInfoDAO;
+    SimpMessageSendingOperations messagingTemplate;
 
     @RequestMapping("/main")
     public String chatMain() {

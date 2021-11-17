@@ -8,5 +8,4 @@
         insert into chat_room_userinfo(room_id, id, authority)
                     values (#{room_id}, #{id}, #{authority});
     </insert>
-
 </mapper>
