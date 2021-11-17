@@ -30,7 +30,7 @@
                 <p class="card-title" th:text="${'방 번호: ' + myRoomInfo.room_id}"></p>
                 <p class="card-text" th:text="${'총원: ' + myRoomInfo.total_people}"></p>
                 <p class="card-text" th:text="${'방장: ' + myRoomInfo.master_id}"></p>
-                <a href="#" class="btn btn-primary">입장</a>
+                <a th:href="'/chat/room/'+${myRoomInfo.room_id}" class="btn btn-primary">입장</a>
             </div>
         </div>
     </div>

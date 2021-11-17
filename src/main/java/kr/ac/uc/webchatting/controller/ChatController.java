@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -90,6 +91,14 @@ public class ChatController {
         chatRoomUserInfoDAO.insertChatRoomUserInfo(chatRoomUserInfoDTO);
 
         return "redirect:/chat/list";
+    }
+
+    @RequestMapping("/room/{room_id}")
+    public String chatRoomEnter(@PathVariable("room_id") int room_id, Model model) {
+        // 채팅방으로 이동
+        model.addAttribute("room_id", room_id);
+
+        return "thymeleaf/chat_Room";
     }
 
 
