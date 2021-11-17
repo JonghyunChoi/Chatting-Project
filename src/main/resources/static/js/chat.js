@@ -17,5 +17,4 @@ $(function(){
     $('#submit').on("click", function(){
         writeAjax('N');
     });
-
 });
