@@ -8,12 +8,12 @@ function readAjax(compareTime){
         data: {
         "lastMessage": compareTime
         },
-        success: function(data){
-        if(data.length == 0){
-        }
-        return;
-        }else{
-        $.each(data, function(index, entry)
-        }
-    })
+            success: function(data){
+                if(data.length == 0){
+                }
+                    return;
+                }else{
+                    $.each(data, function(index, entry))
+                }
+        })
 }
