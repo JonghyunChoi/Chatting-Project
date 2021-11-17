@@ -1,5 +1,6 @@
 package kr.ac.uc.webchatting.controller;
 
+import com.google.gson.Gson;
 import kr.ac.uc.webchatting.auth.MyDetails;
 import kr.ac.uc.webchatting.dao.IChatRoomDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO;
@@ -103,8 +104,10 @@ public class ChatController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/read", method = {RequestMethod.POST, RequestMethod.GET})
-    public String chat(String lastMessage){
-        return "";
+    @RequestMapping(value = "/read.do", method = {RequestMethod.POST, RequestMethod.GET})
+    public String chatting(String lastDate){
+        Gson gson = new Gson();
+
+        return gson.toJson(lastDate);
     }
 }
