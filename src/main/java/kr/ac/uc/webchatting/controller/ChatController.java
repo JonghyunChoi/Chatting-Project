@@ -3,12 +3,10 @@ package kr.ac.uc.webchatting.controller;
 import kr.ac.uc.webchatting.auth.MyDetails;
 import kr.ac.uc.webchatting.dao.IChatRoomDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO;
-import kr.ac.uc.webchatting.dto.ChatDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -93,10 +91,5 @@ public class ChatController {
         return "redirect:/chat/list";
     }
 
-    @MessageMapping("/chat/message")
-    public void message(ChatDTO message) {
-        if (ChatDTO.MessageType.ENTER.equals(message.getType()))
-            message.setMessage(message.getSender() + "님이 입장하셨습니다.");
-        messagingTemplate.convertAndSend("/sub/chat/room/" + message.getRoom_id(), message);
-    }
+
 }
