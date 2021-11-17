@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,7 +94,7 @@ public class ChatController {
 
 
     @ResponseBody
-    @RequestMapping("/read")
+    @RequestMapping(value = "/read", method = {RequestMethod.POST, RequestMethod.GET})
     public String chat(String lastMessage){
         return "";
     }
