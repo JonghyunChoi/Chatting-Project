@@ -1,5 +1,5 @@
 $(function(){
-    setInterval(lastDateAjax, 1000);
+    setInterval(lastMessageAjax, 1000);
 
     $('#message').focus();
 
