@@ -1,0 +1,5 @@
+function readAjax(compareTime){
+    $.ajax({
+
+    })
+}
