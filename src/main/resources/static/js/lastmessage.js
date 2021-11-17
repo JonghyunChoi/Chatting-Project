@@ -5,11 +5,11 @@ function lastMessageAjax(){
         cache: false,
         async: false,
         success: function(data){
-            if(lastDateTime < data) {
-                readAjax(lastDateTime);
-                lastDateTime = data;
+            if(lastMessageTime < data) {
+                readAjax(lastMessageTime);
+                lastMessageTime = data;
             }else{
-                lastDateTime = data;
+                lastMessageTime = data;
             }
         }
     });

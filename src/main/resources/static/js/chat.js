@@ -7,6 +7,7 @@ $(function(){
         {
         if(key.keyCode == 13){
             if(key.shiftKey){
+
             }else{
                 writeAjax('N');
                 return false;
