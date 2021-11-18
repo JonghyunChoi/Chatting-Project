@@ -4,16 +4,17 @@ function readAjax(compareTime){
         url: "/read",
         dataType: "json",
         cache: false,
-        async: false
+        async: false,
         data: {
         "lastMessage": compareTime
         },
-            success: function(data){
-                if(data.length == 0){
-                }
-                    return;
-                }else{
-                    $.each(data, function(index, entry))
-                }
-        })
+        success: function(data){
+            if(data.length == 0) {
+                return;
+            }
+            else {
+                $.each(data, function(index, entry) {})
+            }
+        }
+    });
 }
