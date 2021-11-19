@@ -16,13 +16,13 @@ public class MainController {
     @RequestMapping("/login")
     public String login() {
         // 로그인 페이지
-        return "security/login";
+        return "thymeleaf/security/login";
     }
 
     @RequestMapping("/register")
     public String register() {
         // 회원가입 페이지
-        return "security/register";
+        return "thymeleaf/security/register";
     }
 
     @RequestMapping("/admin")

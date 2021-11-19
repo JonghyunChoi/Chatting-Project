@@ -35,7 +35,7 @@ public class AccountController {
         if(result.hasErrors()) { // 회원가입 시 문제가 있을 경우
             if(result.getFieldError("id") != null) {
                 id_errorMsg = result.getFieldError("id").getDefaultMessage();
-                System.out.println(result.getFieldError("id").getDefaultMessage());
+                //System.out.println(result.getFieldError("id").getDefaultMessage());
                 model.addAttribute("id_error_message", id_errorMsg);
             }
 
@@ -51,7 +51,8 @@ public class AccountController {
                 model.addAttribute("nickname_error_message", nickname_errorMsg);
             }
 
-            return "security/register";
+            return "thymeleaf/security/register";
+
         } else { // 회원가입 시 문제가 없을 경우
             String id = request.getParameter("id");
             List<UserAccountDTO> userIDList = userAccountDAO.getUserID(id);
@@ -66,7 +67,7 @@ public class AccountController {
                     System.out.println(id_errorMsg);
                     model.addAttribute("id_error_message", id_errorMsg);
 
-                    return "security/register";
+                    return "thymeleaf/security/register";
                 }
             }
 
