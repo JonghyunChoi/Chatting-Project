@@ -117,7 +117,7 @@ public class ChatDAO {
         return  chatList;
     }
 
-    public int submit(String fromID, String toID, String chatContent) {
+    public int submitChat(String fromID, String toID, String chatContent) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
