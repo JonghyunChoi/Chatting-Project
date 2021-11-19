@@ -113,9 +113,9 @@ public class ChatController {
 
     @ResponseBody
     @RequestMapping(value = "/read.do", method = {RequestMethod.POST, RequestMethod.GET})
-    public String chatting(String lastDate){
+    public String chatting(String lastMessage){
         Gson gson = new Gson();
 
-        return gson.toJson(lastDate);
+        return gson.toJson(lastMessage);
     }
 }

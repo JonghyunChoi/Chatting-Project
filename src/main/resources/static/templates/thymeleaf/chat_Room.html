@@ -7,10 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${room_id}+'번방'"></title>
 
-    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/room.css" />
 </head>
 
-<div class="content">
-    <p th:text="${room_id}+'번방'"></p>
+<div id="contentWrap">
+
+    <div id="contentCover">
+        <div id="roomWrap">
+            <div id="roomList">
+                <div id="roomHeader">MENU</div>
+                <div id="roomSelect">
+
+                </div>
+            </div>
+        </div>
+        <div id="chatWrap">
+            <div id="chatHeader" th:text="${room_id}+'번방'"></div>
+            <div id="chatLog">
+                <div class="anotherMsg">
+
+                </div>
+                <div class="myMsg">
+
+                </div>
+            </div>
+            <form id="chatForm">
+                <input type="text" autocomplete="off" size="30" id="message" placeholder=" 메시지를 입력하세요">
+                <input type="submit" value="보내기">
+                <script type="text/javascript" src="chat.js"></script>
+            </form>
+        </div>
+        <div id="memberWrap">
+            <div id="memberList">
+                <div id="memberHeader">MEMBER LIST</div>
+                <div id="memberSelect"></div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>
