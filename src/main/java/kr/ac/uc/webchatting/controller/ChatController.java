@@ -32,9 +32,15 @@ public class ChatController {
     IChatRoomUserInfoDAO chatRoomUserInfoDAO;
     // SimpMessageSendingOperations messagingTemplate;
 
+    public void menuActive(int active, Model model) {
+        int _active = active;
+        model.addAttribute("active", _active);
+    }
+
     @RequestMapping("/main")
-    public String chatMain() {
+    public String chatMain(Model model) {
         // 메인 화면
+        menuActive(0, model);
         return "thymeleaf/chat_Main";
     }
 
@@ -44,6 +50,7 @@ public class ChatController {
         String id = myDetails.getUsername();
         List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(id);
         model.addAttribute("myRoomInfoCarrier", myRoomInfoCarrier);
+        menuActive(1, model);
 
         return "thymeleaf/chat_MyRoomList";
     }
@@ -64,6 +71,7 @@ public class ChatController {
         // 공개 채팅방 리스트
         List<ChatRoomDTO> roomInfoCarrier = chatRoomDAO.publicRoomList();
         model.addAttribute("roomInfoCarrier", roomInfoCarrier);
+        menuActive(2, model);
 
         return "thymeleaf/chat_PublicRoomList";
     }

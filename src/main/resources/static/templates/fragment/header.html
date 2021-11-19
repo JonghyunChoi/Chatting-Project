@@ -30,24 +30,27 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="/chat/main" class="btn btn-outline-secondary nav-link link-dark text-start">
+                <a href="/chat/main" class="btn btn-outline-secondary nav-link link-dark text-start"
+                th:classappend="${active==0 ? 'active':''}">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#home" /></svg>
-                    메인
+                    <span>메인</span>
                 </a>
             </li>
             <li>
-                <a href="/chat/list" class="btn btn-outline-secondary nav-link link-dark text-start">
+                <a href="/chat/list" class="btn btn-outline-secondary nav-link link-dark text-start"
+                th:classappend="${active==1 ? 'active':''}">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#chat" /></svg>
-                    채팅
+                    <span>채팅</span>
                 </a>
             </li>
             <li>
-                <a href="/chat/public" class="btn btn-outline-secondary nav-link link-dark text-start">
+                <a href="/chat/public" class="btn btn-outline-secondary nav-link link-dark text-start"
+                th:classappend="${active==2 ? 'active':''}">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#public_chat" /></svg>
-                    공개 채팅
+                    <span>공개 채팅</span>
                 </a>
             </li>
         </ul>
