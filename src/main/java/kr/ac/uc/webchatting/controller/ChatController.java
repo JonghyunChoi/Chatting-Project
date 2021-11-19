@@ -107,15 +107,6 @@ public class ChatController {
         // 채팅방으로 이동
         model.addAttribute("room_id", room_id);
 
-        return "thymeleaf/chat_Room";
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value = "/read.do", method = {RequestMethod.POST, RequestMethod.GET})
-    public String chatting(String lastMessage){
-        Gson gson = new Gson();
-
-        return gson.toJson(lastMessage);
+        return "chat/chat_Room";
     }
 }
