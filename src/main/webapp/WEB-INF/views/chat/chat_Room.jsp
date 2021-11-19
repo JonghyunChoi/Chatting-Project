@@ -20,7 +20,7 @@
         %>
         <meta charset="UTF-8" content="text/html" http-equiv="Content-Type">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title text="${room_id}+'번방'"></title>
+        <title value="{room_id}+'번방'"></title>
 
         <link rel="stylesheet" type="text/css" href="/css/room.css" />
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -40,7 +40,7 @@
         </div>
         </div>
         <div id="chatWrap">
-        <div id="chatHeader" text="${room_id}+'번방'"></div>
+                <div id="chatHeader">${room_id}번 방</div>
         <div id="chatLog">
         <div class="anotherMsg">
 
@@ -52,7 +52,6 @@
         <form id="chatForm">
         <input type="text" autocomplete="off" size="30" id="message" placeholder=" 메시지를 입력하세요">
         <input type="submit" value="보내기">
-        <script type="text/javascript" src="chat.js"></script>
         </form>
         </div>
         <div id="memberWrap">
