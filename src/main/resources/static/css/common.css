@@ -6,3 +6,29 @@ body {
     justify-content: center;
     min-height: 100vh;
 }
+
+.container {
+    min-height: 100vh;
+    display: inline-flex;
+}
+
+.header {
+    /* border: 1px solid; */
+    display: inline-flex;
+}
+
+.content {
+    /* border: 1px solid; */
+    display: inline-block;
+    width: 100%;
+}
+
+.content_top {
+    margin-top: 10px;
+}
+
+.content_main {
+    border: 1px solid;
+    max-height: 768px;
+    overflow: auto;
+}
