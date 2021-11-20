@@ -92,7 +92,7 @@
     border-top: 2px solid #f0f0f0;
 }
 
-#message {
+#chatContent {
     width: 85%;
     height: calc(100% - 1px);
     border: none;
