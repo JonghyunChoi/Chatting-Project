@@ -67,12 +67,34 @@
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="">Settings</a></li>
-                <li><a class="dropdown-item" href="">Profile</a></li>
+                <li>
+                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profile">Profile</a>
+                </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li><a class="dropdown-item" href="/logout">Sign out</a></li>
             </ul>
+
+            <!-- Profile Modal -->
+            <div class="modal fade" id="profile">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Profile</h5>
+                        </div>
+
+                        <div class="modal-body">
+                            <p th:text="'id: ' + ${id}"></p>
+                            <p th:text="'nickname: ' + ${nickname}"></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

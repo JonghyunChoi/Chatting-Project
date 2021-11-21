@@ -1,11 +1,11 @@
 package kr.ac.uc.webchatting.controller;
 
-import com.google.gson.Gson;
 import kr.ac.uc.webchatting.auth.MyDetails;
 import kr.ac.uc.webchatting.dao.IChatRoomDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO;
 import kr.ac.uc.webchatting.dto.ChatRoomDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO;
+import kr.ac.uc.webchatting.dto.UserAccountDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,12 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 
 @RequiredArgsConstructor
 @Controller
@@ -29,24 +25,42 @@ public class ChatController {
     IChatRoomDAO chatRoomDAO;
     @Autowired
     IChatRoomUserInfoDAO chatRoomUserInfoDAO;
-    // SimpMessageSendingOperations messagingTemplate;
 
     public void menuActive(int active, Model model) {
+        /* 사이드바 메뉴 CSS 활성화 로직 */
+
         int _active = active;
         model.addAttribute("active", _active);
     }
 
+    public void sendMyInfoData(@AuthenticationPrincipal MyDetails myDetails, Model model) {
+        /* 유저 데이터 전달 로직 */
+        
+        String id = myDetails.getUsername();
+        String nickname = myDetails.getUserNickname();
+
+        model.addAttribute("id", id);
+        model.addAttribute("nickname", nickname);
+    }
+
     @RequestMapping("/main")
-    public String chatMain(Model model) {
-        // 메인 화면
+    public String chatMain(@AuthenticationPrincipal MyDetails myDetails, Model model) {
+        /* 메인 페이지 */
+
+        // 전달할 데이터
         menuActive(0, model);
+        sendMyInfoData(myDetails, model);
+
         return "thymeleaf/chat_Main";
     }
 
     @RequestMapping("/list")
     public String chatRoomList(@AuthenticationPrincipal MyDetails myDetails, Model model) {
-        // 참여하고 있는 채팅방 목록
-        String id = myDetails.getUsername();
+        /* 참여하고 있는 채팅방 리스트 페이지 */
+        String id = myDetails.getUsername(); // 유저 아이디
+        
+        // 전달할 데이터
+        sendMyInfoData(myDetails, model);
         List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(id);
         model.addAttribute("myRoomInfoCarrier", myRoomInfoCarrier);
         menuActive(1, model);
@@ -56,18 +70,19 @@ public class ChatController {
 
     @RequestMapping("/make")
     public String chatRoomMakePage(@AuthenticationPrincipal MyDetails myDetails, Model model) {
-        // 채팅방 만드는 페이지
-        String id = myDetails.getUsername();
-        String nickname = myDetails.getUserNickname();
-        model.addAttribute("id", id);
-        model.addAttribute("nickname", nickname);
+        /* 채팅방 만드는 페이지 */
 
+        // 전달할 데이터
+        sendMyInfoData(myDetails, model);
         return "thymeleaf/chat_MakeRoom";
     }
 
     @RequestMapping("/public")
-    public String chatRoomPublic(Model model) {
-        // 공개 채팅방 리스트
+    public String chatRoomPublic(@AuthenticationPrincipal MyDetails myDetails, Model model) {
+        /* 공개 채팅방 리스트 페이지 */
+
+        // 전달할 데이터
+        sendMyInfoData(myDetails, model);
         List<ChatRoomDTO> roomInfoCarrier = chatRoomDAO.publicRoomList();
         model.addAttribute("roomInfoCarrier", roomInfoCarrier);
         menuActive(2, model);
@@ -77,7 +92,8 @@ public class ChatController {
 
     @RequestMapping("/makeRoom")
     public String chatRoomMakeProcess(HttpServletRequest request, Model model) {
-        // 채팅방 생성 URL
+        /* 채팅방 생성 로직 */
+        
         String room_name = request.getParameter("room_name"); // 방 이름
         String master_id = request.getParameter("master_id"); // 유저 아이디
         int total_people = 1;
@@ -103,7 +119,9 @@ public class ChatController {
 
     @RequestMapping("/room/{room_id}")
     public String chatRoomEnter(@PathVariable("room_id") int room_id, Model model) {
-        // 채팅방으로 이동
+        /* 각 채팅방으로 이동 로직 */
+        
+        // 전달할 데이터
         model.addAttribute("room_id", room_id);
 
         return "chat/chat_Room";
