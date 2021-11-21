@@ -10,5 +10,6 @@ public class ChatRoomContentDTO {
     private String chat_content;    // 채팅 내용
     private String chat_date;       // 채팅 보낸 날짜
     private String file_url;        // 파일 URL
-    private String chat_type;       // 채팅 타입(채팅, 파일 등)
+    private String chat_type;       // 채팅 타입(text, file 등)
+
 }

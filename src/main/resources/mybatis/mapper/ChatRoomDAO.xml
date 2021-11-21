@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.uc.webchatting.dao.IChatRoomDAO">
-    <insert id="insertChatRoom" parameterType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
+    <insert id="addChatRoom" parameterType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
         insert into chat_room(room_name, master_id, total_people, public_open)
                     values (#{room_name}, #{master_id}, #{total_people}, #{public_open});
     </insert>
@@ -23,5 +23,9 @@
 
     <select id="getChatRoomID" resultType="_int">
         select LAST_INSERT_ID();
+    </select>
+
+    <select id="getChatRoomName" parameterType="_int" resultType="string">
+        select room_name from chat_room where room_id=#{room_id};
     </select>
 </mapper>

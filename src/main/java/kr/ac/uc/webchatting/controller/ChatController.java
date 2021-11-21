@@ -1,22 +1,21 @@
 package kr.ac.uc.webchatting.controller;
 
 import kr.ac.uc.webchatting.auth.MyDetails;
+import kr.ac.uc.webchatting.dao.IChatRoomContentDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO;
+import kr.ac.uc.webchatting.dto.ChatRoomContentDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO;
-import kr.ac.uc.webchatting.dto.UserAccountDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
@@ -25,6 +24,9 @@ public class ChatController {
     IChatRoomDAO chatRoomDAO;
     @Autowired
     IChatRoomUserInfoDAO chatRoomUserInfoDAO;
+    @Autowired
+    IChatRoomContentDAO chatRoomContentDAO;
+
 
     public void menuActive(int active, Model model) {
         /* 사이드바 메뉴 CSS 활성화 로직 */
@@ -105,7 +107,7 @@ public class ChatController {
         chatRoomDTO.setMaster_id(master_id);
         chatRoomDTO.setTotal_people(total_people);
         chatRoomDTO.setPublic_open(public_open);
-        chatRoomDAO.insertChatRoom(chatRoomDTO);
+        chatRoomDAO.addChatRoom(chatRoomDTO);
 
         // 채팅방 유저 정보 추가(생성한 유저)
         ChatRoomUserInfoDTO chatRoomUserInfoDTO = new ChatRoomUserInfoDTO();
@@ -118,12 +120,35 @@ public class ChatController {
     }
 
     @RequestMapping("/room/{room_id}")
-    public String chatRoomEnter(@PathVariable("room_id") int room_id, Model model) {
+    public String chatRoomEnter(@PathVariable("room_id") int room_id,
+                                @AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 각 채팅방으로 이동 로직 */
-        
-        // 전달할 데이터
-        model.addAttribute("room_id", room_id);
+        String id = myDetails.getUsername();
+        String room_name = chatRoomDAO.getChatRoomName(room_id);
 
-        return "chat/chat_Room";
+        // 전달할 데이터
+        model.addAttribute("id", id);
+        model.addAttribute("room_id", room_id);
+        model.addAttribute("room_name", room_name);
+
+        return "thymeleaf/chat_Room";
+    }
+
+    @RequestMapping(value = "/submit_message", method = RequestMethod.POST)
+    public void submitMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
+        int room_id = chatRoomContentDTO.getRoom_id();
+        String id = chatRoomContentDTO.getId();
+        String chat_content = chatRoomContentDTO.getChat_content();
+        String file_url = chatRoomContentDTO.getFile_url();
+        String chat_type = chatRoomContentDTO.getChat_type();
+
+        System.out.println(chatRoomContentDTO);
+//        System.out.println("room_id: " + room_id);
+//        System.out.println("id: " + id);
+//        System.out.println("chat_content: " + chat_content);
+//        System.out.println("file_url: " + file_url);
+//        System.out.println("chat_type: " + chat_type);
+
+        chatRoomContentDAO.addChatMessage(chatRoomContentDTO);
     }
 }
