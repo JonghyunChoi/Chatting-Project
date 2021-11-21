@@ -22,6 +22,7 @@ public class ChatListServlet extends HttpServlet {
         String fromID = request.getParameter("fromID");
         String toID = request.getParameter("toID");
         String listType = request.getParameter("listType");
+
         if(fromID == null || fromID.equals("") || toID == null || toID.equals("")
                 || listType == null || listType.equals(""))
             response.getWriter().write("");

@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <meta charset="UTF-8" content="text/html" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title value="{room_id}+'번방'"></title>
+<title>${room_id}번방</title>
 
 <link rel="stylesheet" type="text/css" href="/css/room.css" />
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -34,14 +34,14 @@
                 function submitFunction() {
                         var fromID = '<%= ID %>';
                         var toID = '<%= toID %>';
-                        var charContent = $('#chatContent').val();
+                        var chatContent = $('#chatContent').val();
                         $.ajax({
                                 type: "POST",
-                                url: "./chatSubmitServlet",
+                                url: "./ChatSubmitServlet",
                                 data: {
                                         fromID: encodeURIComponent(fromID),
                                         toID: encodeURIComponent(toID),
-                                        chatContent: encodeURIComponent(charContent),
+                                        chatContent: encodeURIComponent(chatContent),
                                 },
                                 success: function (result) {
                                         if(result == 1) {
@@ -61,7 +61,7 @@
                         var toID = '<%= toID %>';
                         $.ajax({
                                 type: "POST",
-                                url: "./chatListServlet",
+                                url: "./ChatListServlet",
                                 data: {
                                         fromID: encodeURIComponent(fromID),
                                         toID: encodeURIComponent(toID),
@@ -107,8 +107,9 @@
                         }, 300);
                 }
         </script>
-        </head>
-        <body>
+</head>
+
+<body>
         <div id="contentWrap">
         <div id="contentCover">
         <div id="roomWrap">
@@ -197,5 +198,5 @@
                         getInfiniteChat()
                 })
         </script>
-        </body>
-        </html>
+</body>
+</html>

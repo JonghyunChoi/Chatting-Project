@@ -25,7 +25,6 @@ import java.util.List;
 @RequestMapping("/chat")
 public class ChatController {
 
-
     @Autowired
     IChatRoomDAO chatRoomDAO;
     @Autowired
