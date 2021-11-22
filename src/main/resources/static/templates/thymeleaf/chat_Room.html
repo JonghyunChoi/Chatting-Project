@@ -154,16 +154,16 @@
     function addChatHtml(id, content, time) {
         let myID = '[[${id}]]';
 
-        if(myID == id) {
-            $('.myMsg').append(
-                '<div>' +
+        if(myID === id) {
+            $('#chatLog').append(
+                '<div class="myMsg">' +
                 '<p>' + id +'('+ time +')'+ '</p>' +
                 '<p>' + content + '</p>' +
                 '</div>'
             );
         } else {
-            $('.anotherMsg').append(
-                '<div>' +
+            $('#chatLog').append(
+                '<div class="anotherMsg">' +
                 '<p>' + id +'('+ time +')'+ '</p>' +
                 '<p>' + content + '</p>' +
                 '</div>'
