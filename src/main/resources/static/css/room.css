@@ -31,7 +31,7 @@
     height: 40px;
     border: 1px solid #0084FF;
     display:block;
-    transition:all 0.9s, color 0.3s;
+    transition:all 0.7s, color 0.3s;
 }
 
 #btn2 {
@@ -44,7 +44,7 @@
     height: 40px;
     border: 1px solid #0084FF;
     display:block;
-    transition:all 0.9s, color 0.3s;
+    transition:all 0.7s, color 0.3s;
 }
 
 #btn3 {
@@ -57,7 +57,7 @@
     height: 40px;
     border: 1px solid #0084FF;
     display:block;
-    transition:all 0.9s, color 0.3s;
+    transition:all 0.7s, color 0.3s;
 }
 
 .btn:hover{
@@ -165,6 +165,14 @@
     background: none;
     color: #0084FF;
     font-size: 17px;
+    border:1px solid #0084FF;
+    border-radius: 5px;
+    transition:all 0.7s, color 0.3s;
+}
+
+#chatForm > input[type=submit]:hover{
+    color: white !important;
+    box-shadow:200px 0 0 0 rgb(0, 131, 254) inset;
 }
 
 #memberWrap{
