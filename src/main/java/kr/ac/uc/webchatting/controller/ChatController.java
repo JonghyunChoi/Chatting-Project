@@ -136,6 +136,8 @@ public class ChatController {
 
     @RequestMapping(value = "/submit_message", method = RequestMethod.POST)
     public void submitMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
+        /* 보낸 메시지 Json 파싱 및 DB 저장 로직 */
+
         int room_id = chatRoomContentDTO.getRoom_id();
         String id = chatRoomContentDTO.getId();
         String chat_content = chatRoomContentDTO.getChat_content();
@@ -149,6 +151,16 @@ public class ChatController {
 //        System.out.println("file_url: " + file_url);
 //        System.out.println("chat_type: " + chat_type);
 
-        chatRoomContentDAO.addChatMessage(chatRoomContentDTO);
+        chatRoomContentDAO.addChatMessage(chatRoomContentDTO); // DB 저장
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/load_message", method = RequestMethod.POST)
+    public List<ChatRoomContentDTO> loadMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
+        int room_id = chatRoomContentDTO.getRoom_id();
+        List<ChatRoomContentDTO> dto = chatRoomContentDAO.getChatLog(room_id);
+
+        System.out.println(dto);
+        return dto;
     }
 }

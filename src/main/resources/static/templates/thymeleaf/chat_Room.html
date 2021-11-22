@@ -23,14 +23,12 @@
             <div id="chatHeader"><span th:text="${room_id}+'번 방 - '+${room_name}"></span></div>
             <div id="chatLog">
                 <div class="anotherMsg">
-                    <div>
-                        <p>another Message</p>
-                    </div>
+                <!-- 다른 사람 메시지 -->
+
                 </div>
                 <div class="myMsg">
-                    <div id="result">
+                <!-- 내 메시지 -->
 
-                    </div>
                 </div>
             </div>
             <form id="chatForm">
@@ -44,6 +42,7 @@
             <div class="vertical-alignment-helper">
                 <div class="modal-dialog vertical-align-center">
                     <div class="modal-content">
+
                         <div class="modal-header panel-heading">
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times</span>
@@ -53,9 +52,11 @@
 
                             </h4>
                         </div>
+
                         <div class="modal-body">
 
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
                         </div>
@@ -67,8 +68,12 @@
 
         <div id="memberWrap">
             <div id="memberList">
-                <div id="memberHeader">MEMBER LIST</div>
-                <div id="memberSelect"></div>
+                <div id="memberHeader">
+                    MEMBER LIST
+                </div>
+                <div id="memberSelect">
+
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +93,6 @@
             "file_url": file_url,
             "chat_type": chat_type
         };
-        console.log(chatRoomContentDTO);
 
         $.ajax({
             type: "POST",
@@ -99,5 +103,70 @@
 
         $('#chatContent').val(''); // 내용 초기화
     }
+
+    let last_msg = 0;
+    let first_load = 0;
+    function loadMessage(get_msg) {
+        let room_id = '[[${room_id}]]';
+        let id = '[[${id}]]';
+        let chatRoomContentDTO = {
+            "room_id": encodeURIComponent(room_id),
+            "id": encodeURIComponent(id)
+        };
+        $.ajax({
+            type: "POST",
+            url: "/chat/load_message",
+            data: JSON.stringify(chatRoomContentDTO),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8;",
+            success: function(data) {
+                if(data == "") return;
+                //let result = data.result;
+                get_msg = Number(data.last);
+
+                if(last_msg < data.length) {
+                    for(let i = 0; i < data.length; i++) {
+                        if(data.length > 0) {
+                            addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date);
+                        }
+                    }
+                }
+                last_msg = Number(data.last);
+            }
+        })
+    }
+
+    function addChatHtml(id, content, time) {
+        let myID = '[[${id}]]';
+
+        if(myID == id) {
+            $('.myMsg').append(
+                '<div class="">' +
+                '<p>' + id +'('+ time +')'+ '</p>' +
+                '<p>' + content + '</p>' +
+                '</div>'
+            );
+        } else {
+            $('.anotherMsg').append(
+                '<div>' +
+                '<p>' + id +'('+ time +')'+ '</p>' +
+                '<p>' + content + '</p>' +
+                '</div>'
+            );
+        }
+        $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+    }
+
+    function getInfiniteChatLoad() {
+        setInterval(function (){
+            loadMessage(last_msg);
+        }, 2000);
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        getInfiniteChatLoad();
+    })
 </script>
 </html>

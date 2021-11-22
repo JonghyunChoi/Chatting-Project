@@ -8,5 +8,8 @@
         insert into chat_room_content(room_id, id, chat_content, file_url, chat_type)
                     values (#{room_id}, #{id}, #{chat_content}, #{file_url}, #{chat_type});
     </insert>
-
+    
+    <select id="getChatLog" parameterType="_int" resultType="kr.ac.uc.webchatting.dto.ChatRoomContentDTO">
+        select * from chat_room_content where room_id=#{room_id} ORDER BY chat_date;
+    </select>
 </mapper>
