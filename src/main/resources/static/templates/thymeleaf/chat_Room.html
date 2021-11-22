@@ -99,17 +99,21 @@
             "chat_type": chat_type
         };
 
-        $.ajax({
-            type: "POST",
-            url: "/chat/submit_message",
-            data: JSON.stringify(chatRoomContentDTO),
-            contentType: "application/json; charset=utf-8;"
-        })
+        if(chat_content != '') {
+            $.ajax({
+                type: "POST",
+                url: "/chat/submit_message",
+                data: JSON.stringify(chatRoomContentDTO),
+                contentType: "application/json; charset=utf-8;"
+            });
+        }
 
         $('#chatContent').val(''); // 내용 초기화
     }
 
     let last_msg = 0;
+    let first_set = 0;
+
     function loadMessage(get_msg) {
         let room_id = '[[${room_id}]]';
         let id = '[[${id}]]';
@@ -125,15 +129,23 @@
             contentType: "application/json; charset=utf-8;",
             success: function(data) {
                 if(data === "") return;
+
                 get_msg = Number(data.length);
 
-                if(last_msg < get_msg) {
+                if(last_msg < get_msg && first_set == 0) {
                     for(let i = 0; i < data.length; i++) {
                         if(data.length > 0) {
                             addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date);
                         }
                     }
+                } else {
+                    for(let i = last_msg; i < data.length; i++) {
+                        if(data.length > 0) {
+                            addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date);
+                        }
+                    }
                 }
+                first_set = 1;
                 last_msg = Number(data.length);
             }
         });
@@ -144,7 +156,7 @@
 
         if(myID == id) {
             $('.myMsg').append(
-                '<div class="">' +
+                '<div>' +
                 '<p>' + id +'('+ time +')'+ '</p>' +
                 '<p>' + content + '</p>' +
                 '</div>'
@@ -163,7 +175,7 @@
     function getInfiniteChatLoad() {
         setInterval(function (){
             loadMessage(last_msg);
-        }, 300);
+        }, 500);
     }
 </script>
 

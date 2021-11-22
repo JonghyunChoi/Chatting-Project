@@ -10,6 +10,6 @@
     </insert>
     
     <select id="getChatLog" parameterType="_int" resultType="kr.ac.uc.webchatting.dto.ChatRoomContentDTO">
-        select * from chat_room_content where room_id=#{room_id} ORDER BY chat_date;
+        select * from chat_room_content where room_id=#{room_id} order by chat_id;
     </select>
 </mapper>
