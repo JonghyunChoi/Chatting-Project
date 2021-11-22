@@ -160,7 +160,6 @@ public class ChatController {
         int room_id = chatRoomContentDTO.getRoom_id();
         List<ChatRoomContentDTO> dto = chatRoomContentDAO.getChatLog(room_id);
 
-        System.out.println(dto);
         return dto;
     }
 }

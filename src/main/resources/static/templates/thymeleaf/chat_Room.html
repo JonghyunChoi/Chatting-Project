@@ -36,7 +36,7 @@
 
                 </div>
             </div>
-            <form id="chatForm">
+            <form id="chatForm" onsubmit="return false;">
                 <input type="text" autocomplete="off" size="30" id="chatContent" placeholder=" 메시지를 입력하세요">
                 <input type="submit" onclick="submitMessage()" value="보내기">
             </form>
@@ -110,7 +110,6 @@
     }
 
     let last_msg = 0;
-    let first_load = 0;
     function loadMessage(get_msg) {
         let room_id = '[[${room_id}]]';
         let id = '[[${id}]]';
@@ -125,20 +124,19 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8;",
             success: function(data) {
-                if(data == "") return;
-                //let result = data.result;
-                get_msg = Number(data.last);
+                if(data === "") return;
+                get_msg = Number(data.length);
 
-                if(last_msg < data.length) {
+                if(last_msg < get_msg) {
                     for(let i = 0; i < data.length; i++) {
                         if(data.length > 0) {
                             addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date);
                         }
                     }
                 }
-                last_msg = Number(data.last);
+                last_msg = Number(data.length);
             }
-        })
+        });
     }
 
     function addChatHtml(id, content, time) {
