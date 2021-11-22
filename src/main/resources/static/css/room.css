@@ -5,7 +5,6 @@
 }
 
 #roomList {
-    border: 1px solid #0084FF;
     border-radius: 5px;
 }
 
@@ -17,6 +16,61 @@
     line-height: 40px;
     text-align: center;
     border-radius: 5px;
+
+    font-weight: bold;
+
+}
+
+#btn1 {
+    margin-top: 3px;
+    color: #0084FF;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #0084FF;
+    display:block;
+    transition:all 0.9s, color 0.3s;
+}
+
+#btn2 {
+    margin-top: 3px;
+    color: #0084FF;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #0084FF;
+    display:block;
+    transition:all 0.9s, color 0.3s;
+}
+
+#btn3 {
+    margin-top: 3px;
+    color: #0084FF;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #0084FF;
+    display:block;
+    transition:all 0.9s, color 0.3s;
+}
+
+.btn:hover{
+    color: white !important;
+    box-shadow:200px 0 0 0 rgb(0, 131, 254) inset;
+}
+
+.buttonList {
+    height: 121px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 .roomEl {
