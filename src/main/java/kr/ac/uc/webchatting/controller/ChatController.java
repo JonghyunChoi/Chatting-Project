@@ -149,6 +149,7 @@ public class ChatController {
 
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == 0) { // 새로운 멤버일 경우 DB 저장
             addChatRoomUserInfo(room_id, id, "USER");
+            chatRoomDAO.addChatRoomTotalPeople(1, room_id);
         }
 
         return "thymeleaf/chat_Room";
