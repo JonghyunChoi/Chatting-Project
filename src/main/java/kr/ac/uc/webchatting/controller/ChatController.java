@@ -45,6 +45,18 @@ public class ChatController {
         model.addAttribute("nickname", nickname);
     }
 
+    public void addChatRoomUserInfo(int room_id, String id, String authority) {
+        /* 채팅방 유저 정보 저장 */
+
+        ChatRoomUserInfoDTO chatRoomUserInfoDTO = new ChatRoomUserInfoDTO();
+        chatRoomUserInfoDTO.setRoom_id(room_id);
+        chatRoomUserInfoDTO.setId(id);
+        chatRoomUserInfoDTO.setAuthority(authority);
+
+        chatRoomUserInfoDAO.insertChatRoomUserInfo(chatRoomUserInfoDTO);
+    }
+
+
     @RequestMapping("/main")
     public String chatMain(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 메인 페이지 */
@@ -126,30 +138,29 @@ public class ChatController {
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
 
+
         // 전달할 데이터
         model.addAttribute("id", id);
         model.addAttribute("room_id", room_id);
         model.addAttribute("room_name", room_name);
 
+        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == 0) { // 새로운 멤버일 경우 DB 저장
+            addChatRoomUserInfo(room_id, id, "USER");
+        }
+
         return "thymeleaf/chat_Room";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/submit_message", method = RequestMethod.POST)
     public void submitMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
-        /* 보낸 메시지 Json 파싱 및 DB 저장 로직 */
+        /* 보낸 메시지 json 파싱 및 DB 저장 로직 */
 
-        int room_id = chatRoomContentDTO.getRoom_id();
-        String id = chatRoomContentDTO.getId();
-        String chat_content = chatRoomContentDTO.getChat_content();
-        String file_url = chatRoomContentDTO.getFile_url();
-        String chat_type = chatRoomContentDTO.getChat_type();
-
-        System.out.println(chatRoomContentDTO);
-//        System.out.println("room_id: " + room_id);
-//        System.out.println("id: " + id);
-//        System.out.println("chat_content: " + chat_content);
-//        System.out.println("file_url: " + file_url);
-//        System.out.println("chat_type: " + chat_type);
+//        int room_id = chatRoomContentDTO.getRoom_id();
+//        String id = chatRoomContentDTO.getId();
+//        String chat_content = chatRoomContentDTO.getChat_content();
+//        String file_url = chatRoomContentDTO.getFile_url();
+//        String chat_type = chatRoomContentDTO.getChat_type();
 
         chatRoomContentDAO.addChatMessage(chatRoomContentDTO); // DB 저장
     }
@@ -157,6 +168,8 @@ public class ChatController {
     @ResponseBody
     @RequestMapping(value = "/load_message", method = RequestMethod.POST)
     public List<ChatRoomContentDTO> loadMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
+        /* 채팅방 접속 시 json 형태로 ajax 로 보내는 로직 */
+
         int room_id = chatRoomContentDTO.getRoom_id();
         List<ChatRoomContentDTO> dto = chatRoomContentDAO.getChatLog(room_id);
 

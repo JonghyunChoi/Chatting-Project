@@ -8,4 +8,7 @@
         insert into chat_room_userinfo(room_id, id, authority)
                     values (#{room_id}, #{id}, #{authority});
     </insert>
+    <select id="checkUserInChatRoom" parameterType="string" resultType="_int">
+        select COUNT(*) from chat_room_userinfo where room_id=#{room_id} and id=#{id};
+    </select>
 </mapper>

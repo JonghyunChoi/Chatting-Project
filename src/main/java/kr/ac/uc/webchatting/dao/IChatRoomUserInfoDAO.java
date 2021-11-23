@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IChatRoomUserInfoDAO {
     public void insertChatRoomUserInfo(ChatRoomUserInfoDTO dto);
+    public int checkUserInChatRoom(String room_id, String id);
 }
