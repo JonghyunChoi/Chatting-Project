@@ -155,14 +155,14 @@
         if(myID === id) {
             $('#chatLog').append(
                 '<div class="myMsg">' +
-                '<p>' + id +'('+ time +')'+ '</p>' +
+                '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +
                 '<p>' + content + '</p>' +
                 '</div>'
             );
         } else {
             $('#chatLog').append(
                 '<div class="anotherMsg">' +
-                '<p>' + id +'('+ time +')'+ '</p>' +
+                '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +
                 '<p>' + content + '</p>' +
                 '</div>'
             );

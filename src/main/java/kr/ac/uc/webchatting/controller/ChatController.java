@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -155,14 +158,25 @@ public class ChatController {
     @RequestMapping(value = "/submit_message", method = RequestMethod.POST)
     public void submitMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
         /* 보낸 메시지 json 파싱 및 DB 저장 로직 */
+        LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        ChatRoomContentDTO dto = new ChatRoomContentDTO();
 
-//        int room_id = chatRoomContentDTO.getRoom_id();
-//        String id = chatRoomContentDTO.getId();
-//        String chat_content = chatRoomContentDTO.getChat_content();
-//        String file_url = chatRoomContentDTO.getFile_url();
-//        String chat_type = chatRoomContentDTO.getChat_type();
+        int room_id = chatRoomContentDTO.getRoom_id();
+        String id = chatRoomContentDTO.getId();
+        String chat_content = chatRoomContentDTO.getChat_content();
+        String chat_date = formattedKorNow;
+        String file_url = chatRoomContentDTO.getFile_url();
+        String chat_type = chatRoomContentDTO.getChat_type();
 
-        chatRoomContentDAO.addChatMessage(chatRoomContentDTO); // DB 저장
+        dto.setRoom_id(room_id);
+        dto.setId(id);
+        dto.setChat_content(chat_content);
+        dto.setChat_date(chat_date);
+        dto.setFile_url(file_url);
+        dto.setChat_type(chat_type);
+
+        chatRoomContentDAO.addChatMessage(dto); // DB 저장
     }
 
     @ResponseBody

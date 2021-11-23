@@ -5,8 +5,8 @@
 
 <mapper namespace="kr.ac.uc.webchatting.dao.IChatRoomContentDAO">
     <insert id="addChatMessage" parameterType="kr.ac.uc.webchatting.dto.ChatRoomContentDTO">
-        insert into chat_room_content(room_id, id, chat_content, file_url, chat_type)
-                    values (#{room_id}, #{id}, #{chat_content}, #{file_url}, #{chat_type});
+        insert into chat_room_content(room_id, id, chat_content, chat_date, file_url, chat_type)
+                    values (#{room_id}, #{id}, #{chat_content}, #{chat_date}, #{file_url}, #{chat_type});
     </insert>
     
     <select id="getChatLog" parameterType="_int" resultType="kr.ac.uc.webchatting.dto.ChatRoomContentDTO">
