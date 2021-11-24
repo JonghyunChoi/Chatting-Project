@@ -60,8 +60,26 @@
     transition:all 0.7s, color 0.3s;
 }
 
-.btn:hover{
+#exit {
+    margin-top: 3px;
+    color: #ff0000;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #ff0000;
+    display:block;
+    transition:all 0.7s, color 0.3s;
+}
+
+#exit:hover{
     color: white !important;
+    box-shadow:200px 0 0 0 rgb(254, 0, 0) inset !important;
+}
+
+.btn:hover{
+    color: white !important;;
     box-shadow:200px 0 0 0 rgb(0, 131, 254) inset;
 }
 
