@@ -14,4 +14,7 @@
     <select id="selectMemberList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO">
         select * from chat_room_userinfo where room_id=#{room_id};
     </select>
+    <delete id="delUserInChatRoom" parameterType="kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO">
+        delete from chat_room_userinfo where room_id=#{room_id} and id=#{id};
+    </delete>
 </mapper>
