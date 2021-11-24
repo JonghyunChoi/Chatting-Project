@@ -190,4 +190,11 @@ public class ChatController {
 
         return dto;
     }
+
+    @RequestMapping(value = "/memberSelect")
+    public String memberSelect(ChatRoomUserInfoDTO dto, Model model){
+        List<ChatRoomUserInfoDTO> list = chatRoomUserInfoDAO.selectMemberList(dto);
+        model.addAttribute("list", list);
+        return "thymeleaf/chat_Room";
+    }
 }

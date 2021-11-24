@@ -21,7 +21,7 @@
                     <button type="button" id="btn1" class="btn btn-default" onclick="location.href='/chat/main'">메인</button>
                     <button type="button" id="btn2" class="btn btn-default" onclick="location.href='/chat/list'">채팅</button>
                     <button type="button" id="btn3" class="btn btn-default" onclick="location.href='/chat/public'">공개 채팅</button>
-                    <button type="button" id="exit" class="btn btn-default" onclick="location.href='/chat/exit'">나가기</button>
+                    <button type="button" id="chatRoomExit" class="btn btn-default" onclick="location.href='/chat/exit'">나가기</button>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                     MEMBER LIST
                 </div>
                 <div id="memberSelect" >
-                    <tr th:each="ChatRoomUserInfoDTO : ${memberList}">
+                    <tr th:each="ChatRoomUserInfoDTO : ${list}">
                         <td th:text="${ChatRoomUserInfoDTO.id}">id</td>
                     </tr>
                 </div>

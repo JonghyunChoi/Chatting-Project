@@ -60,7 +60,7 @@
     transition:all 0.7s, color 0.3s;
 }
 
-#exit {
+#chatRoomExit {
     margin-top: 3px;
     color: #ff0000;
     text-align: center;
@@ -73,7 +73,7 @@
     transition:all 0.7s, color 0.3s;
 }
 
-#exit:hover{
+#chatRoomExit:hover{
     color: white !important;
     box-shadow:200px 0 0 0 rgb(254, 0, 0) inset !important;
 }
