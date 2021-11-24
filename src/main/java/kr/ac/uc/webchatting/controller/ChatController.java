@@ -97,11 +97,14 @@ public class ChatController {
     @RequestMapping("/public")
     public String chatRoomPublic(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 공개 채팅방 리스트 페이지 */
+        String id = myDetails.getUsername();
 
         // 전달할 데이터
         sendMyInfoData(myDetails, model);
+        List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(id);
         List<ChatRoomDTO> roomInfoCarrier = chatRoomDAO.publicRoomList();
         model.addAttribute("roomInfoCarrier", roomInfoCarrier);
+        model.addAttribute("myRoomInfoCarrier", myRoomInfoCarrier);
         menuActive(2, model);
 
         return "thymeleaf/chat_PublicRoomList";

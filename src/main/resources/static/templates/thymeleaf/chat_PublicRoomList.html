@@ -19,10 +19,10 @@
     <div class="content_main">
         <!-- 검색 -->
         <div class="search">
-            <input onkeyup="filter()" id="value" type="text" placeholder="Search" style="width: 100%;">
+            <input onkeyup="filter()" id="value" type="text" placeholder="Search" style="width: 100%; margin-bottom: 10px;">
         </div>
 
-        <div class="card" th:each="roomInfo : ${roomInfoCarrier}">
+        <div class="card" th:each="roomInfo : ${roomInfoCarrier}" style="margin-top: 10px;">
             <div class="card-header">
                 <span class="h5">방 이름: </span>
                 <span class="room-title h5" th:text="${roomInfo.room_name}"></span>
@@ -32,6 +32,9 @@
                 <p class="card-text" th:text="${'총원: ' + roomInfo.total_people}"></p>
                 <p class="card-text" th:text="${'방장: ' + roomInfo.master_id}"></p>
                 <a th:href="'/chat/room/'+${roomInfo.room_id}" class="btn btn-primary">입장</a>
+                <th:block th:each="myRoomInfo : ${myRoomInfoCarrier}">
+                    <span class="badge bg-danger" th:if="${myRoomInfo.room_id} == ${roomInfo.room_id}">※ 참여중인 방입니다.</span>
+                </th:block>
             </div>
         </div>
     </div>

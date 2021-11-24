@@ -21,7 +21,7 @@
             <input onkeyup="filter()" id="value" type="text" placeholder="Search" style="width: 100%; margin-bottom: 10px;">
         </div>
 
-        <div class="card" th:each="myRoomInfo : ${myRoomInfoCarrier}" style="margin-bottom: 10px;">
+        <div class="card" th:each="myRoomInfo : ${myRoomInfoCarrier}" style="margin-top: 10px;">
             <div class="card-header">
                 <span class="h5">방 이름: </span>
                 <span class="room-title h5" th:text="${myRoomInfo.room_name}"></span>
