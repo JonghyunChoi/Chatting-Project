@@ -12,6 +12,6 @@
         select room_id from chat_room_userinfo where room_id=#{room_id} and id=#{id};
     </select>
     <select id="selectMemberList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO">
-        select * from chat_room_userinfo where room_id=#{room_id} and id=#{id};
+        select * from chat_room_userinfo where room_id=#{room_id};
     </select>
 </mapper>

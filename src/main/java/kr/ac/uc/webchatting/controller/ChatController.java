@@ -140,12 +140,14 @@ public class ChatController {
         /* 각 채팅방으로 이동 로직 */
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
+        List<ChatRoomUserInfoDTO> list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
 
 
         // 전달할 데이터
         model.addAttribute("id", id);
         model.addAttribute("room_id", room_id);
         model.addAttribute("room_name", room_name);
+        model.addAttribute("list", list);
 
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장
             addChatRoomUserInfo(room_id, id, "USER");
@@ -189,12 +191,5 @@ public class ChatController {
         List<ChatRoomContentDTO> dto = chatRoomContentDAO.getChatLog(room_id);
 
         return dto;
-    }
-
-    @RequestMapping(value = "/memberSelect")
-    public String memberSelect(ChatRoomUserInfoDTO dto, Model model){
-        List<ChatRoomUserInfoDTO> list = chatRoomUserInfoDAO.selectMemberList(dto);
-        model.addAttribute("list", list);
-        return "thymeleaf/chat_Room";
     }
 }

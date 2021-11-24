@@ -77,9 +77,9 @@
                 <div id="memberHeader">
                     MEMBER LIST
                 </div>
-                <div id="memberSelect" >
+                <div id="memberSelect">
                     <tr th:each="ChatRoomUserInfoDTO : ${list}">
-                        <td th:text="${ChatRoomUserInfoDTO.id}">id</td>
+                        <p th:text="${ChatRoomUserInfoDTO.id}"></p>
                     </tr>
                 </div>
             </div>

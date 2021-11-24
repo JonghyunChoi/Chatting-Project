@@ -22,7 +22,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.security:spring-security-taglibs'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
-    implementation 'javax.servlet:jstl'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
     // Thymeleaf
@@ -39,12 +38,6 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
     implementation 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.webjars.bower:bootstrap:4.3.1'
-    implementation 'org.webjars.bower:vue:2.5.16'
-    implementation 'org.webjars.bower:axios:0.17.1'
-    implementation 'org.webjars:sockjs-client:1.1.2'
-    implementation 'com.google.code.gson:gson:2.8.0'
-
 }
 
 test {
