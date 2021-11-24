@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ChatRoomContentDTO {
     // 채팅방 채팅 내역
+
     private int chat_id;            // 채팅 번호
     private int room_id;            // 방 번호
     private String id;              // 유저 아이디

@@ -56,7 +56,7 @@ public class ChatController {
         chatRoomUserInfoDTO.setId(id);
         chatRoomUserInfoDTO.setAuthority(authority);
 
-        chatRoomUserInfoDAO.insertChatRoomUserInfo(chatRoomUserInfoDTO);
+        chatRoomUserInfoDAO.addChatRoomUserInfo(chatRoomUserInfoDTO);
     }
 
 
@@ -129,7 +129,7 @@ public class ChatController {
         chatRoomUserInfoDTO.setRoom_id(chatRoomDAO.getChatRoomID());
         chatRoomUserInfoDTO.setId(master_id);
         chatRoomUserInfoDTO.setAuthority("ADMIN");
-        chatRoomUserInfoDAO.insertChatRoomUserInfo(chatRoomUserInfoDTO);
+        chatRoomUserInfoDAO.addChatRoomUserInfo(chatRoomUserInfoDTO);
 
         return "redirect:/chat/list";
     }
