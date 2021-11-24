@@ -147,7 +147,7 @@ public class ChatController {
         model.addAttribute("room_id", room_id);
         model.addAttribute("room_name", room_name);
 
-        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == 0) { // 새로운 멤버일 경우 DB 저장
+        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장
             addChatRoomUserInfo(room_id, id, "USER");
             chatRoomDAO.addChatRoomTotalPeople(1, room_id);
         }
