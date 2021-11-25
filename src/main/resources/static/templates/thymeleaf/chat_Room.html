@@ -141,13 +141,13 @@
                 if(last_msg < get_msg && first_set == 0) {
                     for(let i = 0; i < data.length; i++) {
                         if(data.length > 0) {
-                            addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date);
+                            addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date, data[i].chat_type);
                         }
                     }
                 } else {
                     for(let i = last_msg; i < data.length; i++) {
                         if(data.length > 0) {
-                            addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date);
+                            addChatHtml(data[i].id, data[i].chat_content, data[i].chat_date, data[i].chat_type);
                         }
                     }
                 }
@@ -157,10 +157,16 @@
         });
     }
 
-    function addChatHtml(id, content, time) {
+    function addChatHtml(id, content, time, type) {
         let myID = '[[${id}]]';
 
-        if(myID === id) {
+         if(type === 'notice') {
+            $('#chatLog').append(
+            '<div class="noticeMsg">' +
+            '<p>' + ' ['+ time +'] ' + '<strong>'+ id +'</strong>' + content + '</p>' +
+            '</div>'
+            );
+        } else if(myID === id) {
             $('#chatLog').append(
                 '<div class="myMsg">' +
                 '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +

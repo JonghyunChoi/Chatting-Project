@@ -144,6 +144,9 @@ public class ChatController {
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
         List<ChatRoomUserInfoDTO> list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
+        LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        ChatRoomContentDTO dto = new ChatRoomContentDTO();
 
 
         // 전달할 데이터
@@ -155,6 +158,14 @@ public class ChatController {
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장
             addChatRoomUserInfo(room_id, id, "USER");
             chatRoomDAO.addChatRoomTotalPeople(1, room_id);
+            dto.setRoom_id(room_id);
+            dto.setId(id);
+            dto.setChat_content("님이 입장하셨습니다.");
+            dto.setChat_date(formattedKorNow);
+            dto.setFile_url("");
+            dto.setChat_type("notice");
+
+            chatRoomContentDAO.addChatMessage(dto);
         }
 
         return "thymeleaf/chat_Room";
