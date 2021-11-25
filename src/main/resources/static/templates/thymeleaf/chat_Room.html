@@ -78,12 +78,12 @@
                     MEMBER LIST
                 </div>
                 <div id="memberSelect">
-                    <div th:each="ChatRoomUserInfoDTO : ${list}">
-                        <span th:text="${ChatRoomUserInfoDTO.id}"></span>
-                        <svg th:if="${ChatRoomUserInfoDTO.authority}=='ADMIN'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                        </svg>
-                    </div>
+<!--                    <div th:each="ChatRoomUserInfoDTO : ${list}">-->
+<!--                        <span th:text="${ChatRoomUserInfoDTO.id}"></span>-->
+<!--                        <svg th:if="${ChatRoomUserInfoDTO.authority}=='ADMIN'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">-->
+<!--                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>-->
+<!--                        </svg>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -151,6 +151,7 @@
                         }
                     }
                 }
+
                 first_set = 1;
                 last_msg = Number(data.length);
             }
@@ -162,31 +163,92 @@
 
          if(type === 'notice') {
             $('#chatLog').append(
-            '<div class="noticeMsg">' +
-            '<p>' + ' ['+ time +'] ' + '<strong>'+ id +'</strong>' + content + '</p>' +
-            '</div>'
+                '<div class="noticeMsg">' +
+                    '<p>' + ' ['+ time +'] ' + '<strong>'+ id +'</strong>' + content + '</p>' +
+                '</div>'
             );
         } else if(myID === id) {
             $('#chatLog').append(
                 '<div class="myMsg">' +
-                '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +
-                '<p>' + content + '</p>' +
+                    '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +
+                    '<p>' + content + '</p>' +
                 '</div>'
             );
         } else {
             $('#chatLog').append(
                 '<div class="anotherMsg">' +
-                '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +
-                '<p>' + content + '</p>' +
+                    '<p>' + '<strong>'+ id +'</strong>' + ' ['+ time +']' + '</p>' +
+                    '<p>' + content + '</p>' +
                 '</div>'
             );
         }
         $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
     }
 
+    let last_list = 0;
+    let first_enter = 0;
+
+    function loadMemberList(get_memberList) {
+        let room_id = '[[${room_id}]]';
+        let id = '[[${id}]]';
+        let chatRoomUserInfoDTO = {
+            "room_id": encodeURIComponent(room_id),
+            "id": encodeURIComponent(id)
+        };
+        $.ajax({
+            type: "POST",
+            url: "/chat/load_member",
+            data: JSON.stringify(chatRoomUserInfoDTO),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8;",
+            success: function(data) {
+                if(data === "") return;
+
+                get_memberList = Number(data.length);
+
+                if(last_list < get_memberList && first_enter == 0) {
+                    for(let i = 0; i < data.length; i++) {
+                        if(data.length > 0) {
+                            addMemberListHtml(data[i].id, data[i].authority)
+                        }
+                    }
+                } else {
+                    for(let i = last_list; i < data.length; i++) {
+                        if(data.length > 0) {
+                            addMemberListHtml(data[i].id, data[i].authority)
+                        }
+                    }
+                }
+
+                first_enter = 1;
+                last_list = Number(data.length);
+            }
+        });
+    }
+
+    function addMemberListHtml(id, authority) {
+        if(authority === 'ADMIN') {
+            $('#memberSelect').append(
+                '<div>' +
+                    '<span style="margin-right: 5px;">' + '<strong>'+ id +'</strong>' + '</span>' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">' +
+                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>' +
+                    '</svg>' +
+                '</div>'
+            );
+        } else {
+            $('#memberSelect').append(
+                '<div>' +
+                    '<span>' + '<strong>'+ id +'</strong>' + '</span>' +
+                '</div>'
+            );
+        }
+    }
+
     function getInfiniteChatLoad() {
         setInterval(function (){
             loadMessage(last_msg);
+            loadMemberList(last_list);
         }, 500);
     }
 </script>

@@ -97,6 +97,7 @@ public class ChatController {
     @RequestMapping("/public")
     public String chatRoomPublic(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 공개 채팅방 리스트 페이지 */
+
         String id = myDetails.getUsername();
 
         // 전달할 데이터
@@ -141,6 +142,7 @@ public class ChatController {
     public String chatRoomEnter(@PathVariable("room_id") int room_id,
                                 @AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 각 채팅방으로 이동 로직 */
+
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
         List<ChatRoomUserInfoDTO> list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
@@ -175,6 +177,7 @@ public class ChatController {
     @RequestMapping(value = "/submit_message", method = RequestMethod.POST)
     public void submitMessage(@RequestBody ChatRoomContentDTO chatRoomContentDTO) {
         /* 보낸 메시지 json 파싱 및 DB 저장 로직 */
+
         LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         ChatRoomContentDTO dto = new ChatRoomContentDTO();
@@ -203,6 +206,17 @@ public class ChatController {
 
         int room_id = chatRoomContentDTO.getRoom_id();
         List<ChatRoomContentDTO> dto = chatRoomContentDAO.getChatLog(room_id);
+
+        return dto;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/load_member", method = RequestMethod.POST)
+    public List<ChatRoomUserInfoDTO> loadMemberList(@RequestBody ChatRoomUserInfoDTO chatRoomUserInfoDTO) {
+        /* 채팅방 접속 시 json 형태로 ajax 로 보내는 로직 */
+
+        int room_id = chatRoomUserInfoDTO.getRoom_id();
+        List<ChatRoomUserInfoDTO> dto = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
 
         return dto;
     }
