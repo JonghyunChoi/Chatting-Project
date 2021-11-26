@@ -12,7 +12,7 @@ public class UserAccountDTO {
     @NotEmpty(message = "비밀번호를 입력해 주세요.")
     private String password;
     private String authority;
-    @NotEmpty(message = "닉네임이 공백입니다.")
+    @NotEmpty(message = "닉네임을 입력해 주세요.")
     private String nickname;
     private int enabled;
 }

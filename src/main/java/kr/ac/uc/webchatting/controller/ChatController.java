@@ -138,6 +138,13 @@ public class ChatController {
         return "redirect:/chat/list";
     }
 
+    @RequestMapping("/account_setting")
+    public String accountSetting() {
+
+
+        return "";
+    }
+
     @RequestMapping("/room/{room_id}")
     public String chatRoomEnter(@PathVariable("room_id") int room_id,
                                 @AuthenticationPrincipal MyDetails myDetails, Model model) {
