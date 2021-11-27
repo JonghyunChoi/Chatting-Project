@@ -4,6 +4,7 @@ import kr.ac.uc.webchatting.auth.MyDetails;
 import kr.ac.uc.webchatting.dao.IChatRoomContentDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomDAO;
 import kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO;
+import kr.ac.uc.webchatting.dao.IUserAccountDAO;
 import kr.ac.uc.webchatting.dto.ChatRoomContentDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO;
@@ -12,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/chat")
 public class ChatController {
 
+    @Autowired
+    IUserAccountDAO userAccountDAO;
     @Autowired
     IChatRoomDAO chatRoomDAO;
     @Autowired
@@ -42,7 +46,7 @@ public class ChatController {
         /* 유저 데이터 전달 로직 */
         
         String id = myDetails.getUsername();
-        String nickname = myDetails.getUserNickname();
+        String nickname = userAccountDAO.getUserNickname(id);
 
         model.addAttribute("id", id);
         model.addAttribute("nickname", nickname);
@@ -139,10 +143,35 @@ public class ChatController {
     }
 
     @RequestMapping("/account_setting")
-    public String accountSetting() {
+    public String accountSetting(@AuthenticationPrincipal MyDetails myDetails, Model model) {
+        /* 유저 계정 설정 */
 
+        String id = myDetails.getUsername();
+        String nickname = userAccountDAO.getUserNickname(id);
 
-        return "";
+        model.addAttribute("id", id);
+        model.addAttribute("nickname", nickname);
+
+        return "thymeleaf/chat_AccountSetting";
+    }
+
+    @RequestMapping("/updateAccount")
+    public String updateAccount(HttpServletRequest request, RedirectAttributes rAttr) {
+        /* 계정 정보 수정 로직 */
+
+        String id = request.getParameter("id");
+        String nickname = request.getParameter("nickname");
+
+        if(nickname == "") {
+            String error_msg = "닉네임을 입력해 주세요.";
+            rAttr.addFlashAttribute("error_msg", error_msg);
+
+            return "redirect:/chat/account_setting";
+        }
+
+        userAccountDAO.updateUserAccount(id, nickname);
+
+        return "redirect:/chat/main";
     }
 
     @RequestMapping("/room/{room_id}")

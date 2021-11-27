@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+<head>
+  <title>계정 설정 - Chat App</title>
+</head>
+
+<div class="content" layout:fragment="content">
+  <div class="content_top">
+    <span class="fs-3 align-middle">계정 설정</span>
+
+    <hr />
+  </div>
+
+  <div class="content_main">
+    <div class="p-5 mb-4 rounded-3">
+      <div class="container-fluid py-5">
+        <form action="updateAccount">
+          <table class="table">
+            <tr>
+              <!-- 방 이름 -->
+              <th class="text-center">아이디</th>
+              <td>
+                <input type="text" name="id" th:value="${id}" th:placeholder="${id}" disabled />
+                <input type="text" name="id" th:value="${id}" th:placeholder="${id}" hidden />
+              </td>
+
+            </tr>
+            <tr>
+              <!-- 닉네임 -->
+              <th class="text-center">닉네임</th>
+              <td>
+                <input type="text" name="nickname" th:value="${nickname}" />
+              </td>
+            </tr>
+          </table>
+          <span class="text-danger" th:text="${error_msg}"></span>
+
+          <!-- FOOTER -->
+          <div class="text-end">
+            <a class="btn btn-secondary text-decoration-none" href="/chat/main">취소</a>
+            <input class="btn btn-primary text-decoration-none" type="submit" value="수정" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</html>
