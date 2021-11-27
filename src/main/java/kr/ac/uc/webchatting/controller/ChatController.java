@@ -78,11 +78,10 @@ public class ChatController {
     @RequestMapping("/list")
     public String chatRoomList(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 참여하고 있는 채팅방 리스트 페이지 */
-        String id = myDetails.getUsername(); // 유저 아이디
         
         // 전달할 데이터
         sendMyInfoData(myDetails, model);
-        List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(id);
+        List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(myDetails.getUsername());
         model.addAttribute("myRoomInfoCarrier", myRoomInfoCarrier);
         menuActive(1, model);
 
@@ -102,11 +101,9 @@ public class ChatController {
     public String chatRoomPublic(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 공개 채팅방 리스트 페이지 */
 
-        String id = myDetails.getUsername();
-
         // 전달할 데이터
         sendMyInfoData(myDetails, model);
-        List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(id);
+        List<ChatRoomDTO> myRoomInfoCarrier = chatRoomDAO.myRoomList(myDetails.getUsername());
         List<ChatRoomDTO> roomInfoCarrier = chatRoomDAO.publicRoomList();
         model.addAttribute("roomInfoCarrier", roomInfoCarrier);
         model.addAttribute("myRoomInfoCarrier", myRoomInfoCarrier);
@@ -146,11 +143,7 @@ public class ChatController {
     public String accountSetting(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 유저 계정 설정 */
 
-        String id = myDetails.getUsername();
-        String nickname = userAccountDAO.getUserNickname(id);
-
-        model.addAttribute("id", id);
-        model.addAttribute("nickname", nickname);
+        sendMyInfoData(myDetails, model);
 
         return "thymeleaf/chat_AccountSetting";
     }
