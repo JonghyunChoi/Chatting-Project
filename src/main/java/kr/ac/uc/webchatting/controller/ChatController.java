@@ -174,7 +174,7 @@ public class ChatController {
 
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
-        List<ChatRoomUserInfoDTO> list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
+        List<ChatRoomUserInfoDTO> user_list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
         LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         ChatRoomContentDTO dto = new ChatRoomContentDTO();
@@ -184,7 +184,7 @@ public class ChatController {
         model.addAttribute("id", id);
         model.addAttribute("room_id", room_id);
         model.addAttribute("room_name", room_name);
-        model.addAttribute("list", list);
+        model.addAttribute("list", user_list);
 
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장
             addChatRoomUserInfo(room_id, id, "USER");
