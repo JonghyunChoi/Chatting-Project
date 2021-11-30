@@ -234,9 +234,9 @@ public class ChatController {
         /* 채팅방 접속 시 json 형태로 ajax 로 보내는 로직 */
 
         int room_id = chatRoomContentDTO.getRoom_id();
-        List<ChatRoomContentDTO> dto = chatRoomContentDAO.getChatLog(room_id);
+        List<ChatRoomContentDTO> dtoList = chatRoomContentDAO.getChatLog(room_id);
 
-        return dto;
+        return dtoList;
     }
 
     @ResponseBody

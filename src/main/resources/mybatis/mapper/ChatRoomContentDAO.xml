@@ -10,6 +10,8 @@
     </insert>
     
     <select id="getChatLog" parameterType="_int" resultType="kr.ac.uc.webchatting.dto.ChatRoomContentDTO">
-        select * from chat_room_content where room_id=#{room_id};
+        select chat_id, room_id, chat_room_content.id, user_account.nickname, chat_content, chat_date, file_url, chat_type
+        from chat_room_content, user_account
+        where room_id=#{room_id} AND chat_room_content.id = user_account.id;
     </select>
 </mapper>
