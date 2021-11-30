@@ -29,6 +29,10 @@
         select room_name from chat_room where room_id=#{room_id};
     </select>
 
+    <select id="getChatRoomMasterID" parameterType="_int" resultType="string">
+        select master_id from chat_room where room_id=#{room_id};
+    </select>
+
     <update id="addChatRoomTotalPeople" parameterType="_int">
         update chat_room set total_people = total_people + #{people_num} where room_id=#{room_id};
     </update>

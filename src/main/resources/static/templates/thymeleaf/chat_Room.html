@@ -24,7 +24,8 @@
                     <button type="button" id="btn2" class="btn btn-default" onclick="location.href='/chat/list'">채팅</button>
                     <button type="button" id="btn3" class="btn btn-default" onclick="location.href='/chat/public'">공개 채팅</button>
                     <button type="button" id="btn4" class="btn btn-default" onclick="location.href='#'">채팅방 설정</button>
-                    <button type="button" id="chatRoomExit" class="btn btn-default"
+                    <button th:if="${id != master_id}"
+                            type="button" id="chatRoomExit" class="btn btn-default"
                             data-bs-toggle="modal" data-bs-target="#exit">
                         나가기
                     </button>
@@ -42,8 +43,8 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">나가기</button>
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button class="btn btn-danger" onclick="exitChatRoom()">나가기</button>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +85,28 @@
 </div>
 
 <script type="text/javascript">
+    function exitChatRoom() {
+        let room_id = '[[${room_id}]]';
+        let id = '[[${id}]]';
+
+        let chatRoomUserInfoDTO = {
+            "room_id": room_id,
+            "id": id
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/chat/exitRoom",
+            data: JSON.stringify(chatRoomUserInfoDTO),
+            contentType: "application/json; charset=utf-8;",
+            success: function () {
+                location.href='/chat/list'
+            }
+        });
+    }
+
     function submitMessage() {
-        let room_id = [[${room_id}]];
+        let room_id = '[[${room_id}]]';
         let id = '[[${id}]]';
         let chat_content = $('#chatContent').val();
         let file_url = null;

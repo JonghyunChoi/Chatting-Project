@@ -10,5 +10,5 @@ public interface IChatRoomUserInfoDAO {
     public void addChatRoomUserInfo(ChatRoomUserInfoDTO dto);    // 채팅방
     public Integer checkUserInChatRoom(String room_id, String id);
     public List<ChatRoomUserInfoDTO> selectMemberList(String room_id);
-    public void delUserInChatRoom(String id);
+    public void delUserInChatRoom(String room_id, String id);
 }

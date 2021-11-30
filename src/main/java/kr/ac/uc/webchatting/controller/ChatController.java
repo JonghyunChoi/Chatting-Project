@@ -139,6 +139,33 @@ public class ChatController {
         return "redirect:/chat/list";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/exitRoom", method = RequestMethod.POST)
+    public void chatRoomExit(@RequestBody ChatRoomUserInfoDTO chatRoomUserInfoDTO) {
+        /* 채팅방 나가는 로직 */
+        int room_id = chatRoomUserInfoDTO.getRoom_id();
+        String id = chatRoomUserInfoDTO.getId();
+        ChatRoomContentDTO dto = new ChatRoomContentDTO();
+
+        // 현재 시간
+        LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        chatRoomUserInfoDAO.delUserInChatRoom(Integer.toString(room_id), id);
+        chatRoomDAO.addChatRoomTotalPeople(-1, room_id);
+
+        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // DB 에서 제거됐을 경우
+            dto.setRoom_id(room_id);
+            dto.setId(id);
+            dto.setChat_content("님이 퇴장하셨습니다.");
+            dto.setChat_date(formattedKorNow);
+            dto.setFile_url("");
+            dto.setChat_type("notice");
+
+            chatRoomContentDAO.addChatMessage(dto);
+        }
+    }
+
     @RequestMapping("/account_setting")
     public String accountSetting(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 유저 계정 설정 */
@@ -174,16 +201,20 @@ public class ChatController {
 
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
+        String master_id = chatRoomDAO.getChatRoomMasterID(room_id);
+
         List<ChatRoomUserInfoDTO> user_list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
-        LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
-        String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         ChatRoomContentDTO dto = new ChatRoomContentDTO();
 
+        // 현재 시간
+        LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+        String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         // 전달할 데이터
         model.addAttribute("id", id);
         model.addAttribute("room_id", room_id);
         model.addAttribute("room_name", room_name);
+        model.addAttribute("master_id", master_id);
         model.addAttribute("list", user_list);
 
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장

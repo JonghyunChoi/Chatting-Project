@@ -31,6 +31,8 @@
                 <p class="card-text" th:text="${'총원: ' + myRoomInfo.total_people}"></p>
                 <p class="card-text" th:text="${'방장: ' + myRoomInfo.master_id}"></p>
                 <a th:href="'/chat/room/'+${myRoomInfo.room_id}" class="btn btn-primary">입장</a>
+                <span class="badge bg-danger" th:if="${id} == ${myRoomInfo.master_id}">#방장</span>
+                <span class="badge bg-secondary" th:unless="${id} == ${myRoomInfo.master_id}">#유저</span>
             </div>
         </div>
     </div>
