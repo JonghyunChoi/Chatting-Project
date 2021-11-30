@@ -28,7 +28,6 @@ body {
 }
 
 .content_main {
-    border: 1px solid;
     max-height: 768px;
     overflow: auto;
 }

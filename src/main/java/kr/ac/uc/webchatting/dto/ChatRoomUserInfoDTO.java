@@ -8,5 +8,10 @@ public class ChatRoomUserInfoDTO {
 
     private int room_id;            // 방 번호
     private String id;              // 유저 아이디
+
+    // not DB save
+    private String nickname;        // 유저 닉네임
+    // *****
+
     private String authority;       // 유저 권한(방장, 유저 등)
 }

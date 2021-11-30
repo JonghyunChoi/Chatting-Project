@@ -12,7 +12,8 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
-<div id="contentWrap">
+<body>
+<div class="container" id="contentWrap">
     <div id="contentCover">
         <div id="roomWrap">
             <div id="roomList">
@@ -55,12 +56,12 @@
             <div id="chatHeader"><span th:text="${room_id}+'번 방 - '+${room_name}"></span></div>
 
             <div id="chatLog">
-<!--                <div class="anotherMsg">-->
-<!--                -->
-<!--                </div>-->
-<!--                <div class="myMsg">-->
+                <!--                <div class="anotherMsg">-->
+                <!--                -->
+                <!--                </div>-->
+                <!--                <div class="myMsg">-->
 
-<!--                </div>-->
+                <!--                </div>-->
             </div>
 
             <form id="chatForm" onsubmit="return false;">
@@ -75,12 +76,7 @@
                     MEMBER LIST
                 </div>
                 <div id="memberSelect">
-<!--                    <div th:each="ChatRoomUserInfoDTO : ${list}">-->
-<!--                        <span th:text="${ChatRoomUserInfoDTO.id}"></span>-->
-<!--                        <svg th:if="${ChatRoomUserInfoDTO.authority}=='ADMIN'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">-->
-<!--                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>-->
-<!--                        </svg>-->
-<!--                    </div>-->
+
                 </div>
             </div>
         </div>
@@ -158,24 +154,24 @@
     function addChatHtml(id, nickname, content, time, type) {
         let myID = '[[${id}]]';
 
-         if(type === 'notice') {
+        if(type === 'notice') {
             $('#chatLog').append(
                 '<div class="noticeMsg">' +
-                    '<p>' + ' ['+ time +'] ' + '<strong>'+ id +'</strong>' + content + '</p>' +
+                '<p>' + ' ['+ time +'] ' + '<strong>' + nickname + '(' + id  + ')' + '</strong>' + content + '</p>' +
                 '</div>'
             );
         } else if(myID === id) {
             $('#chatLog').append(
                 '<div class="myMsg">' +
-                    '<p>' + '<strong>' + nickname + '(' + id  + ')' + '</strong>' + ' ['+ time +']' + '</p>' +
-                    '<p>' + content + '</p>' +
+                '<p>' + '<strong>' + nickname + '(' + id  + ')' + '</strong>' + ' ['+ time +']' + '</p>' +
+                '<p>' + content + '</p>' +
                 '</div>'
             );
         } else {
             $('#chatLog').append(
                 '<div class="anotherMsg">' +
-                    '<p>' + '<strong>' + nickname + '(' + id  + ')' +'</strong>' + ' ['+ time +']' + '</p>' +
-                    '<p>' + content + '</p>' +
+                '<p>' + '<strong>' + nickname + '(' + id  + ')' +'</strong>' + ' ['+ time +']' + '</p>' +
+                '<p>' + content + '</p>' +
                 '</div>'
             );
         }
@@ -206,13 +202,13 @@
                 if(last_list < get_memberList && first_enter == 0) {
                     for(let i = 0; i < data.length; i++) {
                         if(data.length > 0) {
-                            addMemberListHtml(data[i].id, data[i].authority)
+                            addMemberListHtml(data[i].id, data[i].nickname, data[i].authority)
                         }
                     }
                 } else {
                     for(let i = last_list; i < data.length; i++) {
                         if(data.length > 0) {
-                            addMemberListHtml(data[i].id, data[i].authority)
+                            addMemberListHtml(data[i].id, data[i].nickname, data[i].authority)
                         }
                     }
                 }
@@ -223,20 +219,22 @@
         });
     }
 
-    function addMemberListHtml(id, authority) {
+    function addMemberListHtml(id, nickname, authority) {
         if(authority === 'ADMIN') {
             $('#memberSelect').append(
                 '<div>' +
-                    '<span style="margin-right: 5px;">' + '<strong>'+ id +'</strong>' + '</span>' +
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">' +
-                        '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>' +
-                    '</svg>' +
+                '<span style="margin-right: 5px;">' + '<strong>' + nickname + '(' + id  + ')' + '</strong>' + '</span>' +
+                '<a data-bs-toggle="tooltip" data-bs-placement="top" title="방장">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">' +
+                '<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>' +
+                '</svg>' +
+                '</a>' +
                 '</div>'
             );
         } else {
             $('#memberSelect').append(
                 '<div>' +
-                    '<span>' + '<strong>'+ id +'</strong>' + '</span>' +
+                '<span>' + '<strong>' + nickname + '(' + id  + ')' + '</strong>' + '</span>' +
                 '</div>'
             );
         }
@@ -255,4 +253,5 @@
         getInfiniteChatLoad();
     })
 </script>
+</body>
 </html>
