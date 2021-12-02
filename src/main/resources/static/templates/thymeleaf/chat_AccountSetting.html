@@ -35,6 +35,13 @@
                 <input type="text" name="nickname" th:value="${nickname}" />
               </td>
             </tr>
+            <tr>
+              <!-- 상태 메시지 -->
+              <th class="text-center">상태메시지</th>
+              <td>
+                <input type="text" name="status_msg" th:value="${status_msg}" />
+              </td>
+            </tr>
           </table>
           <span class="text-danger" th:text="${error_msg}"></span>
 

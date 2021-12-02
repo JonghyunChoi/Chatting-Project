@@ -12,12 +12,16 @@
         select nickname from user_account where id=#{id};
     </select>
 
+    <select id="getUserStatusMsg" parameterType="string" resultType="string">
+        select status_msg from user_account where id=#{id};
+    </select>
+
     <insert id="saveUserAccount" parameterType="kr.ac.uc.webchatting.dto.UserAccountDTO">
-        insert into user_account(id, password, authority, nickname, enabled)
-                    values (#{id}, #{password}, #{authority}, #{nickname}, #{enabled});
+        insert into user_account(id, password, authority, nickname, enabled, status_msg)
+                    values (#{id}, #{password}, #{authority}, #{nickname}, #{enabled}, #{status_msg});
     </insert>
 
     <update id="updateUserAccount" parameterType="string">
-        update user_account set nickname=#{nickname} where id=#{id};
+        update user_account set nickname=#{nickname}, status_msg=#{status_msg} where id=#{id};
     </update>
 </mapper>

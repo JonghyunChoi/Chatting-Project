@@ -15,4 +15,5 @@ public class UserAccountDTO {
     @NotEmpty(message = "닉네임을 입력해 주세요.")
     private String nickname;
     private int enabled;
+    private String status_msg;
 }

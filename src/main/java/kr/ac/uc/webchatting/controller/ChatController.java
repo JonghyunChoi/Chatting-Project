@@ -47,9 +47,11 @@ public class ChatController {
         
         String id = myDetails.getUsername();
         String nickname = userAccountDAO.getUserNickname(id);
+        String status_msg = userAccountDAO.getUserStatusMsg(id);
 
         model.addAttribute("id", id);
         model.addAttribute("nickname", nickname);
+        model.addAttribute("status_msg", status_msg);
     }
 
     public void addChatRoomUserInfo(int room_id, String id, String authority) {
@@ -181,6 +183,7 @@ public class ChatController {
 
         String id = request.getParameter("id");
         String nickname = request.getParameter("nickname");
+        String status_msg = request.getParameter("status_msg");
 
         if(nickname == "") {
             String error_msg = "닉네임을 입력해 주세요.";
@@ -189,7 +192,7 @@ public class ChatController {
             return "redirect:/chat/account_setting";
         }
 
-        userAccountDAO.updateUserAccount(id, nickname);
+        userAccountDAO.updateUserAccount(id, nickname, status_msg);
 
         return "redirect:/chat/main";
     }

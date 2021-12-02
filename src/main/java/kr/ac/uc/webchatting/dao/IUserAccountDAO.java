@@ -9,6 +9,7 @@ import java.util.List;
 public interface IUserAccountDAO {
     public List<UserAccountDTO> getUserID(String id);
     public String getUserNickname(String id);
+    public String getUserStatusMsg(String id);
     public void saveUserAccount(UserAccountDTO dto);
-    public void updateUserAccount(String id, String nickname);
+    public void updateUserAccount(String id, String nickname, String status_msg);
 }

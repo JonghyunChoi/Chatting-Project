@@ -60,6 +60,7 @@ public class AccountController {
             String nickname = request.getParameter("nickname");
             String auth = "ROLE_USER";
             int enabled = 1;
+            String status_msg = "";
 
             if(userIDList.size() != 0) {
                 if(userIDList.get(0).getId().equals(id)) { // 아이디가 중복일 경우
@@ -77,6 +78,7 @@ public class AccountController {
             accountDTO.setAuthority(auth);
             accountDTO.setNickname(nickname);
             accountDTO.setEnabled(enabled);
+            accountDTO.setStatus_msg(status_msg);
 
             userAccountDAO.saveUserAccount(accountDTO);
 
