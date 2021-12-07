@@ -25,6 +25,8 @@
             <div class="card-header">
                 <span class="h5">방 이름: </span>
                 <span class="room-title h5" th:text="${myRoomInfo.room_name}"></span>
+                <span class="badge bg-danger" th:if="${myRoomInfo.public_open}==1">공개</span>
+                <span class="badge bg-secondary" th:unless="${myRoomInfo.public_open}==1">비공개</span>
             </div>
             <div class="card-body">
                 <p class="card-title" th:text="${'방 번호: ' + myRoomInfo.room_id}"></p>

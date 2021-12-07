@@ -14,7 +14,7 @@
     </select>
 
     <select id="myRoomList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
-        select chat_room.room_id, chat_room.room_name, chat_room.total_people
+        select chat_room.room_id, chat_room.room_name, chat_room.total_people, chat_room.public_open
         from chat_room, user_account, chat_room_userinfo
         where chat_room.room_id=chat_room_userinfo.room_id AND #{id}=chat_room_userinfo.id
         group by room_id
