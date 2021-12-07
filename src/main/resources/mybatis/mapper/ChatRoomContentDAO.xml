@@ -14,4 +14,8 @@
         from chat_room_content, user_account
         where room_id=#{room_id} AND chat_room_content.id = user_account.id;
     </select>
+
+    <delete id="delChatLog" parameterType="_int">
+        delete from chat_room_content where room_id=#{room_id};
+    </delete>
 </mapper>

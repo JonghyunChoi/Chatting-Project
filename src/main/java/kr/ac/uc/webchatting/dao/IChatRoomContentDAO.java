@@ -9,4 +9,5 @@ import java.util.List;
 public interface IChatRoomContentDAO {
     public void addChatMessage(ChatRoomContentDTO dto);
     public List<ChatRoomContentDTO> getChatLog(int room_id);
+    public void delChatLog(int room_id);
 }

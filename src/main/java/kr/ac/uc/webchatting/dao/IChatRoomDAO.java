@@ -11,5 +11,7 @@ public interface IChatRoomDAO {
     public List<ChatRoomDTO> publicRoomList();                          // 공개 채팅방 불러오기
     public int getChatRoomID();                                         // 최신 채팅방 번호 가져오기
     public String getChatRoomName(int room_id);                         // 채팅방 이름 불러오기
+    public int getTotalPeople(int room_id);                             // 채팅방 총원 불러오기
     public void addChatRoomTotalPeople(int people_num, int room_id);    // 채팅방 참여자 수 증가, 감소
+    public void delChatRoom(int room_id);
 }

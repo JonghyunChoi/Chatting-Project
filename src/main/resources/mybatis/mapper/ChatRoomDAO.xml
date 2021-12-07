@@ -9,6 +9,10 @@
                     values (#{room_name}, #{total_people}, #{public_open});
     </insert>
 
+    <select id="getTotalPeople" parameterType="_int" resultType="_int">
+        select total_people from chat_room where room_id=#{room_id};
+    </select>
+
     <select id="myRoomList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
         select chat_room.room_id, chat_room.room_name, chat_room.total_people
         from chat_room, user_account, chat_room_userinfo
@@ -32,4 +36,8 @@
     <update id="addChatRoomTotalPeople" parameterType="_int">
         update chat_room set total_people = total_people + #{people_num} where room_id=#{room_id};
     </update>
+
+    <delete id="delChatRoom" parameterType="_int">
+        delete from chat_room where room_id=#{room_id};
+    </delete>
 </mapper>

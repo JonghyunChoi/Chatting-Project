@@ -54,7 +54,7 @@ public class ChatController {
         model.addAttribute("status_msg", status_msg);
     }
 
-    public void addChatRoomUserInfo(int room_id, String id, String authority) {
+    public void addChatRoomUserInfo(int room_id, String id) {
         /* 채팅방 유저 정보 저장 */
 
         ChatRoomUserInfoDTO chatRoomUserInfoDTO = new ChatRoomUserInfoDTO();
@@ -114,11 +114,10 @@ public class ChatController {
     }
 
     @RequestMapping("/makeRoom")
-    public String chatRoomMakeProcess(HttpServletRequest request, Model model) {
+    public String chatRoomMakeProcess(@AuthenticationPrincipal MyDetails myDetails, HttpServletRequest request, Model model) {
         /* 채팅방 생성 로직 */
         
         String room_name = request.getParameter("room_name"); // 방 이름
-        String master_id = request.getParameter("master_id"); // 유저 아이디
         int total_people = 1;
         int public_open = Integer.parseInt(request.getParameter("public_open")); // 방 공개 여부
 
@@ -131,8 +130,8 @@ public class ChatController {
 
         // 채팅방 유저 정보 추가(생성한 유저)
         ChatRoomUserInfoDTO chatRoomUserInfoDTO = new ChatRoomUserInfoDTO();
+        chatRoomUserInfoDTO.setId(myDetails.getUsername());
         chatRoomUserInfoDTO.setRoom_id(chatRoomDAO.getChatRoomID());
-        chatRoomUserInfoDTO.setId(master_id);
         chatRoomUserInfoDAO.addChatRoomUserInfo(chatRoomUserInfoDTO);
 
         return "redirect:/chat/list";
@@ -154,7 +153,11 @@ public class ChatController {
         chatRoomUserInfoDAO.delUserInChatRoom(Integer.toString(room_id), id); // 유저 참여 정보 제거
         chatRoomDAO.addChatRoomTotalPeople(-1, room_id); // 총원 감소
 
-        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 유저 정보 DB 에서 제거됐을 경우
+        if(chatRoomDAO.getTotalPeople(room_id) <= 0) { // 채팅방 인원이 0명 이하일 경우
+            chatRoomDAO.delChatRoom(room_id); // 채팅방 삭제
+            chatRoomContentDAO.delChatLog(room_id); // 채팅 기록 삭제
+
+        } else if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 유저 정보 DB 에서 제거됐을 경우
             dto.setRoom_id(room_id);
             dto.setId(id);
             dto.setChat_content("님이 퇴장하셨습니다.");
@@ -217,7 +220,7 @@ public class ChatController {
         model.addAttribute("list", user_list);
 
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장
-            addChatRoomUserInfo(room_id, id, "USER");
+            addChatRoomUserInfo(room_id, id);
             chatRoomDAO.addChatRoomTotalPeople(1, room_id);
             dto.setRoom_id(room_id);
             dto.setId(id);
