@@ -60,7 +60,6 @@ public class ChatController {
         ChatRoomUserInfoDTO chatRoomUserInfoDTO = new ChatRoomUserInfoDTO();
         chatRoomUserInfoDTO.setRoom_id(room_id);
         chatRoomUserInfoDTO.setId(id);
-        chatRoomUserInfoDTO.setAuthority(authority);
 
         chatRoomUserInfoDAO.addChatRoomUserInfo(chatRoomUserInfoDTO);
     }
@@ -126,7 +125,6 @@ public class ChatController {
         // 방 생성
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
         chatRoomDTO.setRoom_name(room_name);
-        chatRoomDTO.setMaster_id(master_id);
         chatRoomDTO.setTotal_people(total_people);
         chatRoomDTO.setPublic_open(public_open);
         chatRoomDAO.addChatRoom(chatRoomDTO);
@@ -135,7 +133,6 @@ public class ChatController {
         ChatRoomUserInfoDTO chatRoomUserInfoDTO = new ChatRoomUserInfoDTO();
         chatRoomUserInfoDTO.setRoom_id(chatRoomDAO.getChatRoomID());
         chatRoomUserInfoDTO.setId(master_id);
-        chatRoomUserInfoDTO.setAuthority("ADMIN");
         chatRoomUserInfoDAO.addChatRoomUserInfo(chatRoomUserInfoDTO);
 
         return "redirect:/chat/list";
@@ -145,6 +142,7 @@ public class ChatController {
     @RequestMapping(value = "/exitRoom", method = RequestMethod.POST)
     public void chatRoomExit(@RequestBody ChatRoomUserInfoDTO chatRoomUserInfoDTO) {
         /* 채팅방 나가는 로직 */
+        
         int room_id = chatRoomUserInfoDTO.getRoom_id();
         String id = chatRoomUserInfoDTO.getId();
         ChatRoomContentDTO dto = new ChatRoomContentDTO();
@@ -153,10 +151,10 @@ public class ChatController {
         LocalDateTime korNow = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
         String formattedKorNow = korNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        chatRoomUserInfoDAO.delUserInChatRoom(Integer.toString(room_id), id);
-        chatRoomDAO.addChatRoomTotalPeople(-1, room_id);
+        chatRoomUserInfoDAO.delUserInChatRoom(Integer.toString(room_id), id); // 유저 참여 정보 제거
+        chatRoomDAO.addChatRoomTotalPeople(-1, room_id); // 총원 감소
 
-        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // DB 에서 제거됐을 경우
+        if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 유저 정보 DB 에서 제거됐을 경우
             dto.setRoom_id(room_id);
             dto.setId(id);
             dto.setChat_content("님이 퇴장하셨습니다.");
@@ -204,7 +202,6 @@ public class ChatController {
 
         String id = myDetails.getUsername();
         String room_name = chatRoomDAO.getChatRoomName(room_id);
-        String master_id = chatRoomDAO.getChatRoomMasterID(room_id);
 
         List<ChatRoomUserInfoDTO> user_list = chatRoomUserInfoDAO.selectMemberList(Integer.toString(room_id));
         ChatRoomContentDTO dto = new ChatRoomContentDTO();
@@ -217,7 +214,6 @@ public class ChatController {
         model.addAttribute("id", id);
         model.addAttribute("room_id", room_id);
         model.addAttribute("room_name", room_name);
-        model.addAttribute("master_id", master_id);
         model.addAttribute("list", user_list);
 
         if(chatRoomUserInfoDAO.checkUserInChatRoom(Integer.toString(room_id), id) == null) { // 새로운 멤버일 경우 DB 저장

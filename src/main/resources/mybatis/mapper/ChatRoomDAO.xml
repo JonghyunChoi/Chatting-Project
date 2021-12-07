@@ -5,12 +5,12 @@
 
 <mapper namespace="kr.ac.uc.webchatting.dao.IChatRoomDAO">
     <insert id="addChatRoom" parameterType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
-        insert into chat_room(room_name, master_id, total_people, public_open)
-                    values (#{room_name}, #{master_id}, #{total_people}, #{public_open});
+        insert into chat_room(room_name, total_people, public_open)
+                    values (#{room_name}, #{total_people}, #{public_open});
     </insert>
 
     <select id="myRoomList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomDTO">
-        select chat_room.room_id, chat_room.room_name, chat_room.total_people, chat_room.master_id
+        select chat_room.room_id, chat_room.room_name, chat_room.total_people
         from chat_room, user_account, chat_room_userinfo
         where chat_room.room_id=chat_room_userinfo.room_id AND #{id}=chat_room_userinfo.id
         group by room_id
@@ -27,10 +27,6 @@
 
     <select id="getChatRoomName" parameterType="_int" resultType="string">
         select room_name from chat_room where room_id=#{room_id};
-    </select>
-
-    <select id="getChatRoomMasterID" parameterType="_int" resultType="string">
-        select master_id from chat_room where room_id=#{room_id};
     </select>
 
     <update id="addChatRoomTotalPeople" parameterType="_int">

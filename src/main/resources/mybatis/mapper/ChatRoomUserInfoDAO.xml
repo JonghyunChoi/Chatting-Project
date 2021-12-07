@@ -5,14 +5,14 @@
 
 <mapper namespace="kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO">
     <insert id="addChatRoomUserInfo" parameterType="kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO">
-        insert into chat_room_userinfo(room_id, id, authority)
-                    values (#{room_id}, #{id}, #{authority});
+        insert into chat_room_userinfo(room_id, id)
+                    values (#{room_id}, #{id});
     </insert>
     <select id="checkUserInChatRoom" parameterType="string" resultType="_int">
         select room_id from chat_room_userinfo where room_id=#{room_id} and id=#{id};
     </select>
     <select id="selectMemberList" parameterType="string" resultType="kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO">
-        select room_id, chat_room_userinfo.id, user_account.nickname, chat_room_userinfo.authority
+        select room_id, chat_room_userinfo.id, user_account.nickname
         from chat_room_userinfo, user_account
         where room_id=#{room_id} and chat_room_userinfo.id = user_account.id;
     </select>

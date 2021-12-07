@@ -30,7 +30,6 @@
             <div class="card-body">
                 <p class="card-title" th:text="${'방 번호: ' + roomInfo.room_id}"></p>
                 <p class="card-text" th:text="${'총원: ' + roomInfo.total_people}"></p>
-                <p class="card-text" th:text="${'방장: ' + roomInfo.master_id}"></p>
                 <a th:href="'/chat/room/'+${roomInfo.room_id}" class="btn btn-primary">입장</a>
                 <th:block th:each="myRoomInfo : ${myRoomInfoCarrier}">
                     <span class="badge bg-danger" th:if="${myRoomInfo.room_id} == ${roomInfo.room_id}">※ 참여중인 방입니다.</span>

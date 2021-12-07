@@ -12,6 +12,4 @@ public class ChatRoomUserInfoDTO {
     // not DB save
     private String nickname;        // 유저 닉네임
     // *****
-
-    private String authority;       // 유저 권한(방장, 유저 등)
 }
