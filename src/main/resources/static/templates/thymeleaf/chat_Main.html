@@ -36,18 +36,6 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("#keyword").keyup(function() {
-                    let k = $(this).val();
-                    $("#modal-body > tr").hide();
-                    let temp = $("#modal-body > tr > td:nth-child(5n+2):contains('" + k + "')");
-
-                    $(temp).parent().show();
-                })
-            })
-        </script>
-        <hr />
     </div>
 
     <div class="content_main">

@@ -70,18 +70,6 @@
     transition:all 0.7s, color 0.3s;
 }
 
-#btn4 {
-    margin-top: 3px;
-    color: #0084FF;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    width: 200px;
-    height: 40px;
-    border: 1px solid #0084FF;
-    display:block;
-    transition:all 0.7s, color 0.3s;
-}
 
 #chatRoomExit {
     margin-top: 3px;
