@@ -4,12 +4,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 <head>
-    <title>메인 - Chat App</title>
+    <title th:text="${id}+' - Chat App'"> </title>
 </head>
 
 <div class="content" layout:fragment="content">
     <div class="content_top">
-        <span class="fs-3 align-middle">친구</span>
+        <span class="fs-3 align-middle" th:text="${id}"></span>
         <button type="button" class="btn btn-primary align-middle float-end" id="chatRoomExit"
                 data-bs-toggle="modal" data-bs-target="#exit">
             친구 검색
@@ -44,16 +44,13 @@
     </div>
 
     <div class="content_main">
-        <div class="card" style="">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
-                    <span>nickname1</span>
-                </li>
-            </ul>
+        <div>
+            <p>Profile TEST</p>
+            <p th:if="${userAccountCarrier}==null">존재하지 않는 계정입니다.</p>
+            <div th:unless="${userAccountCarrier}==null">
+                <p th:text="'아이디: '+${userAccountCarrier.get(0).getId()}"></p>
+                <p th:text="'닉네임: '+${userAccountCarrier.get(0).getNickname()}"></p>
+            </div>
         </div>
     </div>
 </div>

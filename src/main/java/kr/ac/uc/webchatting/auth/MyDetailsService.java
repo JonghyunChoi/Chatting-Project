@@ -24,10 +24,10 @@ public class MyDetailsService implements UserDetailsService {
 		
 		if(list.size() != 0) {
 			dto = list.get(0);
-			System.out.println("회원맞음");
+			// System.out.println("회원맞음");
 		} else {
 			dto = new UserAccountDTO();
-			System.out.println("회원아님");
+			// System.out.println("회원아님");
 		}
 		
 		MyDetails pd = new MyDetails(dto);

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +24,27 @@ public class AccountController {
     @Autowired
     IUserAccountDAO userAccountDAO;
 
+    @RequestMapping("/{id}")
+    public String profile(@PathVariable("id") String id, Model model) {
+        // 유저 프로필
+
+        List<UserAccountDTO> userAccountCarrier = userAccountDAO.getUserID(id);
+
+        model.addAttribute("id", id);
+        if(userAccountCarrier.size() > 0) {
+            model.addAttribute("userAccountCarrier", userAccountCarrier);
+        }
+
+        return "thymeleaf/profile";
+    }
+
     @RequestMapping("/auth_register")
     public String createAccount(Model model,
                                 HttpServletRequest request,
                                 @ModelAttribute("dto") @Valid UserAccountDTO userAccountDTO,
                                 BindingResult result) {
+        // 회원가입 로직
+        
         String id_errorMsg = "";
         String pwd_errorMsg = "";
         String nickname_errorMsg = "";
