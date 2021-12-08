@@ -114,6 +114,7 @@ function addChatHtml(_myID, id, nickname, content, time, type) {
 
 let last_list = 0;
 let first_enter = 0;
+let memberIDList = [];
 
 function loadMemberList(_room_id, _id, get_memberList) {
     let room_id = _room_id;
@@ -131,34 +132,54 @@ function loadMemberList(_room_id, _id, get_memberList) {
         success: function(data) {
             if(data === "") return;
 
+
+            let delMemberIDList = [];
             get_memberList = Number(data.length);
 
-            if(last_list < get_memberList && first_enter == 0) {
+            if(last_list < get_memberList && first_enter == 0) { // 처음 접속했을 때 + DB 보다 표기되는 멤버 수가 적을 경우 갱신
                 for(let i = 0; i < data.length; i++) {
                     if(data.length > 0) {
-                        addMemberListHtml(data[i].id, data[i].nickname, data[i].authority)
+                        memberIDList[i] = data[i].id;
+                        addMemberListHtml(data[i].id, data[i].nickname)
                     }
                 }
             } else {
-                for(let i = last_list; i < data.length; i++) {
-                    if(data.length > 0) {
-                        addMemberListHtml(data[i].id, data[i].nickname, data[i].authority)
+                for (let i = last_list; i < data.length; i++) { // DB 보다 표기되는 멤버 수가 적을 경우
+                    if (data.length > 0) {
+                        memberIDList[i] = data[i].id;
+                        addMemberListHtml(data[i].id, data[i].nickname)
                     }
                 }
             }
 
+            if(last_list > data.length) { // DB 보다 표기되는 멤버 수가 많을 경우
+                for (let i = 0; i < data.length; i++) {
+                    delMemberIDList[i] = data[i].id;
+                }
+                let filterMemberIDList = memberIDList.filter(x => !delMemberIDList.includes(x));
+
+                for(let i = 0; i < filterMemberIDList.length; i++) {
+                    if(data.length > 0) {
+                        delMemberHtml(filterMemberIDList[i]);
+                    }
+                }
+            }
             first_enter = 1;
             last_list = Number(data.length);
         }
     });
 }
 
-function addMemberListHtml(id, nickname, authority) {
+function addMemberListHtml(id, nickname) {
     $('#memberSelect').append(
-        '<div>' +
+        '<div id="' + id + '">' +
         '<span>' + '<strong>' + nickname + '(' + id  + ')' + '</strong>' + '</span>' +
         '</div>'
     );
+}
+
+function delMemberHtml(id) {
+    $("div").remove("#"+id);
 }
 
 function getInfiniteChatLoad(_room_id, _id) {

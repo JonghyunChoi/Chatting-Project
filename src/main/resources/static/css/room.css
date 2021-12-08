@@ -84,12 +84,12 @@
     transition:all 0.7s, color 0.3s;
 }
 
-#chatRoomExit:hover{
+#chatRoomExit:hover {
     color: white !important;
     box-shadow:200px 0 0 0 rgb(254, 0, 0) inset !important;
 }
 
-.btn:hover{
+#btn1:hover, #btn2:hover, #btn3:hover {
     color: white !important;;
     box-shadow:200px 0 0 0 rgb(0, 131, 254) inset;
 }
