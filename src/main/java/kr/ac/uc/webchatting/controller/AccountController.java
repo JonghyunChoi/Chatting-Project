@@ -7,9 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -30,12 +28,19 @@ public class AccountController {
 
         List<UserAccountDTO> userAccountCarrier = userAccountDAO.getUserID(id);
 
-        model.addAttribute("id", id);
         if(userAccountCarrier.size() > 0) {
             model.addAttribute("userAccountCarrier", userAccountCarrier);
         }
 
         return "thymeleaf/profile";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/friend_search", method = RequestMethod.POST)
+    public List<UserAccountDTO> friend_search(@RequestBody UserAccountDTO inputVal) {
+        List<UserAccountDTO> dto = userAccountDAO.getAllUserID(inputVal.getId()+"%");
+
+        return dto;
     }
 
     @RequestMapping("/auth_register")

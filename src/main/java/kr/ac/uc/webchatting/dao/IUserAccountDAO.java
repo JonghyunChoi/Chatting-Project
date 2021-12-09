@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface IUserAccountDAO {
+    public List<UserAccountDTO> getAllUserID(String inputVal);
     public List<UserAccountDTO> getUserID(String id);
     public String getUserNickname(String id);
     public String getUserStatusMsg(String id);

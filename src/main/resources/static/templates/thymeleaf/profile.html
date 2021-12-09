@@ -4,58 +4,31 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">
 <head>
-    <title th:text="${id}+' - Chat App'"> </title>
+    <title th:if="${userAccountCarrier}"
+           th:text="${userAccountCarrier.get(0).getNickname()}+' ('+${userAccountCarrier.get(0).getId()}+')'+' - Chat App'"></title>
 </head>
 
 <div class="content" layout:fragment="content">
     <div class="content_top">
         <span class="fs-3 align-middle" th:text="${id}"></span>
-        <button type="button" class="btn btn-primary align-middle float-end" id="chatRoomExit"
-                data-bs-toggle="modal" data-bs-target="#exit">
-            친구 검색
-        </button>
-
-        <!-- Exit Modal -->
-        <div class="modal fade" id="exit" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1>Search</h1>
-                        <input type="text" id="keyword" placeholder="Type to Search">
-                    </div>
-
-                    <div class="modal-body">
-                        <tr th:if="${UserAccountDTO}==null">
-                            <td>친구를 검색해 보세요.</td>
-                        </tr>
-                        <tr th:unless="${UserAccountDTO}==null" th:each="userAccount : ${UserAccountDTO}">
-                            <td th:text="${userAccount.id}"></td>
-                        </tr>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <input class="float-end" type="text" id="keyword" placeholder="친구 검색">
 
         <hr />
     </div>
 
     <div class="content_main">
         <div>
-            <p>Profile TEST</p>
-            <p th:if="${userAccountCarrier}==null">존재하지 않는 계정입니다.</p>
-            <div th:unless="${userAccountCarrier}==null">
-                <p th:text="'아이디: '+${userAccountCarrier.get(0).getId()}"></p>
-                <p th:text="'닉네임: '+${userAccountCarrier.get(0).getNickname()}"></p>
+            <p class="fw-bold fs-2" th:if="!${userAccountCarrier}">존재하지 않는 계정입니다.</p>
+            <div th:unless="!${userAccountCarrier}">
+                <p class="fw-bold fs-3" th:text="'닉네임: '+${userAccountCarrier.get(0).getNickname()}"></p>
+                <p class="text-reset" th:text="'아이디: '+${userAccountCarrier.get(0).getId()}"></p>
+                <p class="fst-italic" th:text="'상태 메시지: '+${userAccountCarrier.get(0).getStatus_msg()}"></p>
             </div>
         </div>
+
+        <hr />
     </div>
+
+    <script charset="UTF-8" th:src="@{/js/friend_search.js}"></script>
 </div>
-
-<script type="text/javascript">
-
-</script>
 </html>

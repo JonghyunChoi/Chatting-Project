@@ -10,35 +10,7 @@
 <div class="content" layout:fragment="content">
     <div class="content_top">
         <span class="fs-3 align-middle">친구</span>
-        <button type="button" class="btn btn-primary align-middle float-end" id="chatRoomExit"
-                data-bs-toggle="modal" data-bs-target="#exit">
-            친구 검색
-        </button>
-
-        <!-- Exit Modal -->
-        <div class="modal fade" id="exit" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1>Search</h1>
-                        <input type="text" id="keyword" placeholder="Type to Search">
-                    </div>
-
-                    <div class="modal-body">
-                        <tr th:if="${UserAccountDTO}==null">
-                            <td>친구를 검색해 보세요.</td>
-                        </tr>
-                        <tr th:unless="${UserAccountDTO}==null" th:each="userAccount : ${UserAccountDTO}">
-                            <td th:text="${userAccount.id}"></td>
-                        </tr>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <input class="float-end" type="text" id="keyword" placeholder="친구 검색">
 
         <hr />
     </div>
@@ -56,9 +28,7 @@
             </ul>
         </div>
     </div>
+
+    <script charset="UTF-8" th:src="@{/js/friend_search.js}"></script>
 </div>
-
-<script type="text/javascript">
-
-</script>
 </html>

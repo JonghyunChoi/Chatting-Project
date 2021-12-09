@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.uc.webchatting.dao.IUserAccountDAO">
+    <select id="getAllUserID" parameterType="string" resultType="kr.ac.uc.webchatting.dto.UserAccountDTO">
+        select id from user_account where id like #{inputVal};
+    </select>
+
     <select id="getUserID" resultType="kr.ac.uc.webchatting.dto.UserAccountDTO">
         select * from user_account where id=#{param1};
     </select>
