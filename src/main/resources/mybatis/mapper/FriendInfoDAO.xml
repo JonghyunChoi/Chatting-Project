@@ -13,4 +13,12 @@
     <select id="chkFollow" parameterType="string" resultType="kr.ac.uc.webchatting.dto.FriendInfoDTO">
         select * from friend_info where id=#{id} and friend_id=#{friend_id};
     </select>
+
+    <insert id="addFollow" parameterType="string">
+        insert into friend_info(id, friend_id) values (#{id}, #{friend_id});
+    </insert>
+
+    <delete id="delFollow" parameterType="string">
+        delete from friend_info where id=#{id} and friend_id=#{friend_id};
+    </delete>
 </mapper>

@@ -3,6 +3,7 @@ package kr.ac.uc.webchatting.controller;
 import kr.ac.uc.webchatting.auth.MyDetails;
 import kr.ac.uc.webchatting.dao.IFriendInfoDAO;
 import kr.ac.uc.webchatting.dao.IUserAccountDAO;
+import kr.ac.uc.webchatting.dto.ChatRoomContentDTO;
 import kr.ac.uc.webchatting.dto.FriendInfoDTO;
 import kr.ac.uc.webchatting.dto.UserAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -31,7 +35,7 @@ public class AccountController {
     @RequestMapping("/{id}")
     public String profile(@AuthenticationPrincipal MyDetails myDetails, 
                           @PathVariable("id") String user_id, Model model) {
-        // 유저 프로필
+        // 유저 프로필 접근
         
         String id = myDetails.getUsername(); // 방문하는 사람 아이디
         List<UserAccountDTO> userAccountCarrier = userAccountDAO.getUserID(user_id);
@@ -50,9 +54,27 @@ public class AccountController {
     @ResponseBody
     @RequestMapping(value = "/friend_search", method = RequestMethod.POST)
     public List<UserAccountDTO> friend_search(@RequestBody UserAccountDTO inputVal) {
+        // 친구 검색
+
         List<UserAccountDTO> dto = userAccountDAO.getAllUserID(inputVal.getId()+"%");
 
         return dto;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/follow", method = RequestMethod.POST)
+    public void follow(@RequestBody FriendInfoDTO friendInfoDTO) {
+        /* 팔로우 json 파싱 */
+
+        friendInfoDAO.addFollow(friendInfoDTO.getId(), friendInfoDTO.getFriend_id());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/unfollow", method = RequestMethod.POST)
+    public void unfollow(@RequestBody FriendInfoDTO friendInfoDTO) {
+        /* 언팔로우 json 파싱 */
+
+        friendInfoDAO.delFollow(friendInfoDTO.getId(), friendInfoDTO.getFriend_id());
     }
 
     @RequestMapping("/auth_register")
