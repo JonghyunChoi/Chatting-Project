@@ -1,8 +1,12 @@
 package kr.ac.uc.webchatting.controller;
 
+import kr.ac.uc.webchatting.auth.MyDetails;
+import kr.ac.uc.webchatting.dao.IFriendInfoDAO;
 import kr.ac.uc.webchatting.dao.IUserAccountDAO;
+import kr.ac.uc.webchatting.dto.FriendInfoDTO;
 import kr.ac.uc.webchatting.dto.UserAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +25,23 @@ public class AccountController {
 
     @Autowired
     IUserAccountDAO userAccountDAO;
+    @Autowired
+    IFriendInfoDAO friendInfoDAO;
 
     @RequestMapping("/{id}")
-    public String profile(@PathVariable("id") String id, Model model) {
+    public String profile(@AuthenticationPrincipal MyDetails myDetails, 
+                          @PathVariable("id") String user_id, Model model) {
         // 유저 프로필
+        
+        String id = myDetails.getUsername(); // 방문하는 사람 아이디
+        List<UserAccountDTO> userAccountCarrier = userAccountDAO.getUserID(user_id);
+        List<FriendInfoDTO> friendInfoCarrier = friendInfoDAO.chkFollow(id, user_id);
 
-        List<UserAccountDTO> userAccountCarrier = userAccountDAO.getUserID(id);
-
-        if(userAccountCarrier.size() > 0) {
+        if(userAccountCarrier.size() > 0) { // 존재하는 계정일 경우 프로필 정보 불러오기
             model.addAttribute("userAccountCarrier", userAccountCarrier);
+        }
+        if(friendInfoCarrier.size() > 0) { // 팔로우되어 있을 경우 팔로우되어 있다고 알리기
+            model.addAttribute("friendInfoCarrier", friendInfoCarrier);
         }
 
         return "thymeleaf/profile";

@@ -1,13 +1,11 @@
 package kr.ac.uc.webchatting.controller;
 
 import kr.ac.uc.webchatting.auth.MyDetails;
-import kr.ac.uc.webchatting.dao.IChatRoomContentDAO;
-import kr.ac.uc.webchatting.dao.IChatRoomDAO;
-import kr.ac.uc.webchatting.dao.IChatRoomUserInfoDAO;
-import kr.ac.uc.webchatting.dao.IUserAccountDAO;
+import kr.ac.uc.webchatting.dao.*;
 import kr.ac.uc.webchatting.dto.ChatRoomContentDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomDTO;
 import kr.ac.uc.webchatting.dto.ChatRoomUserInfoDTO;
+import kr.ac.uc.webchatting.dto.UserAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -33,6 +31,8 @@ public class ChatController {
     IChatRoomUserInfoDAO chatRoomUserInfoDAO;
     @Autowired
     IChatRoomContentDAO chatRoomContentDAO;
+    @Autowired
+    IFriendInfoDAO friendInfoDAO;
 
 
     public void menuActive(int active, Model model) {
@@ -69,9 +69,12 @@ public class ChatController {
     public String chatMain(@AuthenticationPrincipal MyDetails myDetails, Model model) {
         /* 메인 페이지 */
 
+        List<UserAccountDTO> friendsInfoCarrier = friendInfoDAO.getMyFriendsInfo(myDetails.getUsername());
+
         // 전달할 데이터
         menuActive(0, model);
         sendMyInfoData(myDetails, model);
+        model.addAttribute("friendsInfoCarrier", friendsInfoCarrier);
 
         return "thymeleaf/chat_Main";
     }

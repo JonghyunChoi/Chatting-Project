@@ -24,11 +24,10 @@ $(function() {
             });
         }
     }).autocomplete("instance")._renderItem = function(ul, item) {
-        return $('<li>')
-            .append('<div >' +
-                '<a style="text-decoration-line: none;" href="/' + item.value + '">' + item.value + '</a>' +
-                '<br>' +
-                '</div>')
+        return $('<li onclick=location.href="/'+item.value+'">')
+            .append(
+                '<span>'+item.value+'</span>'
+                )
             .appendTo(ul);
     }
 });
